@@ -245,6 +245,27 @@ Claude Code によるブランチ名生成の詳細は Day 1 の記事で紹介�
 
 @[card](https://zenn.dev/genda_jp/articles/2025-12-01-shell-script-claude-code)
 
+チームでブランチ命名規則がある場合は、スクリプト内のプロンプトを修正することでカスタマイズできます。
+
+```text
+# デフォルトのプロンプト (スクリプト内)
+Generate a short English slug (kebab-case) for a Git branch name from the following issue.
+- Maximum 5 words
+- Lowercase and hyphens only
+- Remove special characters
+- Start with a verb if possible
+
+# カスタマイズ例: Issue 種別に応じたプレフィックス
+以下の Issue から Git ブランチ名を生成してください。
+- Issue の種別に応じてプレフィックスを決定:
+  - feature/ 新機能
+  - fix/ バグ修正
+  - docs/ ドキュメント
+- フォーマット: <プレフィックス><slug>
+- slug 部分は英語で最大5単語程度
+- 小文字とハイフンのみ
+```
+
 ### 4.4. pr-worktree-create (PR レビュー用)
 
 PR 番号を指定するだけで worktree を一発生成！
