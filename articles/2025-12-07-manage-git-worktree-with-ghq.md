@@ -238,7 +238,7 @@ issue-worktree-create 123 456 789  # 複数 Issue も可
 - Claude Code がなくても `issue-123` のようなシンプルな名前で動作
 - リモートに同名ブランチがあればチェックアウト、なければ新規作成
 - `repo-setup` コマンドがあれば自動実行 (後述)
-- `issue-` から始まるコマンドはあまりないはずなので `is` あたりで Tab キーでコマンド補完できるはず
+- `issue-` から始まるコマンドはあまりないので `is` あたりで Tab キーでコマンド補完できるはず
 
 Claude Code によるブランチ名生成の詳細は Day 1 の記事で紹介しています。
 
@@ -270,6 +270,8 @@ pr-worktree-create 456 789  # 複数 PR も可
 ```
 
 PR のヘッドブランチを自動取得してチェックアウトします。
+
+- `pr-` から始まるコマンドはあまりないので `pr-` あたりで Tab キーでコマンド補完できるはず
 
 ### 4.5. worktree-remove (削除用)
 
@@ -306,6 +308,7 @@ Processing: github.com/org/project-issue-123-add-api
 - ghq のパス形式 (`github.com/org/repo`) で指定可能
 - 通常のリポジトリ (非 worktree) は削除しない安全設計
 - `--force` で削除するため、未コミットの変更があると失われる点に注意
+- `worktree-` から始まるコマンドはあまりないので `wo` あたりで Tab キーでコマンド補完できるはず
 
 ### 4.6. repo-setup (オプション)
 
