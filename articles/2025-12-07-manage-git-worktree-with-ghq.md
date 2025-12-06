@@ -121,6 +121,9 @@ ghq はリポジトリを一元管理するツールです。
 ```bash
 # root ディレクトリを設定 (任意の場所でいいですが大半の方は ~/ghq にすると思います)
 git config --global ghq.root ~/ghq
+
+# 設定を確認
+git config --global ghq.root
 ```
 
 ### 3.3. 基本コマンド
@@ -192,9 +195,7 @@ curl -o ~/.local/bin/worktree-remove \
   https://raw.githubusercontent.com/i9wa4/dotfiles/a8edc17f15e2792545ab8346f48c6df4610aa8a4/bin/worktree-remove
 
 # 3. 実行権限を付与
-chmod +x ~/.local/bin/issue-worktree-create
-chmod +x ~/.local/bin/pr-worktree-create
-chmod +x ~/.local/bin/worktree-remove
+chmod +x ~/.local/bin/{issue-worktree-create,pr-worktree-create,worktree-remove}
 
 # 4. インストール確認
 which issue-worktree-create
@@ -323,16 +324,23 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# npm プロジェクトなら依存関係をインストール
-if [[ -f package.json ]]; then
-  npm install
-fi
+# メインリポジトリの情報を取得
+main_repo="$(git worktree list --porcelain | awk '/^worktree / {print $2; exit}')"
+repo_name="$(basename "${main_repo}")"
 
-# メインリポジトリの .env をコピー (worktree には .env が含まれないため)
-main_repo="$(git worktree list | head -1 | awk '{print $1}')"
-if [[ -f "${main_repo}/.env" ]] && [[ ! -f .env ]]; then
-  cp "${main_repo}/.env" .env
-fi
+# リポジトリごとの初期設定
+case "${repo_name}" in
+  "my-frontend-app")
+    npm ci
+    ;;
+  "my-backend-api")
+    # .env をコピー (worktree には .env が含まれないため)
+    # とはいえ秘密情報の複製が増えるため、direnv 等を推奨
+    if [[ -f "${main_repo}/.env" ]] && [[ ! -f .env ]]; then
+      cp "${main_repo}/.env" .env
+    fi
+    ;;
+esac
 
 # Claude Code 用の作業ディレクトリを作成 (Day 1 参照)
 mkdir -p .i9wa4
