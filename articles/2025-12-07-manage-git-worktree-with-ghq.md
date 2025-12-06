@@ -342,9 +342,22 @@ case "${repo_name}" in
     ;;
 esac
 
-# Claude Code 用の作業ディレクトリを作成 (Day 1 参照)
+# Claude Code 用の作業ディレクトリを作成
+# Issue 情報やレビュー結果などの作業メモを格納する
 mkdir -p .i9wa4
 ```
+
+`.i9wa4/` ディレクトリは global gitignore に追加しておくことで、どのリポジトリでも git 管理外にできます。
+
+```bash
+# global gitignore を設定 (初回のみ)
+git config --global core.excludesfile ~/.config/git/ignore
+
+# .i9wa4/ を global gitignore に追加
+echo ".i9wa4/" >> ~/.config/git/ignore
+```
+
+詳細は Day 1 の記事を参照してください。
 
 このスクリプトを `~/.local/bin/repo-setup` に配置して実行権限を付与すれば、worktree 作成時に自動実行されます。
 
