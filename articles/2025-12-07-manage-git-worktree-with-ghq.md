@@ -186,13 +186,13 @@ source ~/.zshrc
 
 # 2. スクリプトをダウンロード
 curl -o ~/.local/bin/issue-worktree-create \
-  https://raw.githubusercontent.com/i9wa4/dotfiles/a8edc17f15e2792545ab8346f48c6df4610aa8a4/bin/issue-worktree-create
+  https://raw.githubusercontent.com/i9wa4/dotfiles/40944eb/bin/issue-worktree-create
 
 curl -o ~/.local/bin/pr-worktree-create \
-  https://raw.githubusercontent.com/i9wa4/dotfiles/a8edc17f15e2792545ab8346f48c6df4610aa8a4/bin/pr-worktree-create
+  https://raw.githubusercontent.com/i9wa4/dotfiles/40944eb/bin/pr-worktree-create
 
 curl -o ~/.local/bin/worktree-remove \
-  https://raw.githubusercontent.com/i9wa4/dotfiles/a8edc17f15e2792545ab8346f48c6df4610aa8a4/bin/worktree-remove
+  https://raw.githubusercontent.com/i9wa4/dotfiles/40944eb/bin/worktree-remove
 
 # 3. 実行権限を付与
 chmod +x ~/.local/bin/{issue-worktree-create,pr-worktree-create,worktree-remove}
@@ -210,7 +210,7 @@ which issue-worktree-create
 
 Issue 番号を指定するだけで worktree を一発生成！
 
-https://github.com/i9wa4/dotfiles/blob/a8edc17f15e2792545ab8346f48c6df4610aa8a4/bin/issue-worktree-create
+https://github.com/i9wa4/dotfiles/blob/40944eb/bin/issue-worktree-create
 
 ```bash
 # 使い方 (対象リポジトリに cd してから実行)
@@ -250,7 +250,7 @@ Claude Code によるブランチ名生成の詳細は Day 1 の記事で紹介�
 PR 番号を指定するだけで worktree を一発生成！
 コードレビュー時に重宝します。
 
-https://github.com/i9wa4/dotfiles/blob/a8edc17f15e2792545ab8346f48c6df4610aa8a4/bin/pr-worktree-create
+https://github.com/i9wa4/dotfiles/blob/40944eb/bin/pr-worktree-create
 
 ```bash
 # 使い方
@@ -278,7 +278,7 @@ PR のヘッドブランチを自動取得してチェックアウトします�
 
 worktree を安全に削除します。
 
-https://github.com/i9wa4/dotfiles/blob/a8edc17f15e2792545ab8346f48c6df4610aa8a4/bin/worktree-remove
+https://github.com/i9wa4/dotfiles/blob/40944eb/bin/worktree-remove
 
 ```bash
 # ghq パス形式
@@ -316,6 +316,8 @@ Processing: github.com/org/project-issue-123-add-api
 worktree 作成後に自動実行されるセットアップコマンドです。
 リポジトリごとの初期設定を自動化できます。
 
+https://github.com/i9wa4/dotfiles/blob/40944eb/bin/repo-setup
+
 repo-setup の例
 
 ```bash
@@ -350,10 +352,11 @@ mkdir -p .i9wa4
 `.i9wa4/` ディレクトリは global gitignore に追加しておくことで、どのリポジトリでも git 管理外にできます。
 
 ```bash
-# global gitignore を設定 (初回のみ)
+# global gitignore を設定 (デフォルトではここです)
 git config --global core.excludesfile ~/.config/git/ignore
 
-# .i9wa4/ を global gitignore に追加
+# .i9wa4/ (私の GitHub ユーザー ID) を global gitignore に追加
+mkdir -p ~/.config/git
 echo ".i9wa4/" >> ~/.config/git/ignore
 ```
 
@@ -428,7 +431,7 @@ git worktree list
 ghq list
 ```
 
-なお、worktree を削除してもブランチ自体は残ります。
+なお worktree を削除してもブランチ自体は残ります。
 ブランチも削除したい場合は別途 `git branch -D` を実行してください。
 
 ## 7. おわりに
