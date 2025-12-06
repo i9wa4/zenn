@@ -286,6 +286,9 @@ worktree-remove /Users/uma/ghq/github.com/org/project-issue-123
 
 # 相対パス
 worktree-remove ../project-issue-123
+
+# 複数指定も可
+worktree-remove github.com/org/project-issue-123 github.com/org/project-pr-456
 ```
 
 出力例
@@ -391,8 +394,7 @@ cd ../project-issue-789-update-docs  # ドキュメント更新
 
 ### 6.2. worktree の定期削除
 
-不要な worktree を放置するとディスク容量を消費してしまいます。
-定期的に確認して削除するようにしましょう。
+不要な worktree を放置すると ghq + fzf の邪魔になるので定期的に削除するようにしましょう。
 
 ```bash
 # worktree の一覧を確認
