@@ -39,23 +39,23 @@ Issue 駆動開発への意識を高めやすいので AI との相性もばっ�
 
 以下のツールを事前にインストールしておいてください。
 
-| ツール | 必須       | 用途                                            |
-| ---    | ---        | ---                                             |
-| git    | 必須       | バージョン 2.5 以上                             |
-| ghq    | 必須       | リポジトリ管理                                  |
-| gh     | 必須       | GitHub CLI。事前に `gh auth login` で認証が必要 |
-| jq     | 必須       | JSON パーサー                                   |
-| fzf    | オプション | リポジトリ移動の効率化                          |
-| claude | オプション | ブランチ名の自動生成。なくても動作する          |
+| ツール      | 必須       | 用途                                            |
+| ---         | ---        | ---                                             |
+| git         | 必須       | バージョン 2.5 以上                             |
+| ghq         | 必須       | リポジトリ管理                                  |
+| gh          | 必須       | GitHub CLI。事前に `gh auth login` で認証が必要 |
+| jq          | 必須       | JSON パーサー                                   |
+| fzf or peco | オプション | リポジトリ移動の効率化                          |
+| claude      | オプション | ブランチ名の自動生成。なくても動作する          |
 
 インストールは以下のように進めればOKです。
 
 ```bash
 # macOS (Homebrew)
-brew install ghq gh jq fzf
+brew install ghq gh jq fzf  # fzf の代わりに peco でもOK
 
 # Ubuntu/Debian
-sudo apt install gh jq fzf
+sudo apt install gh jq fzf  # fzf の代わりに peco でもOK
 # ghq は go install か GitHub Releases からインストール
 
 # gh の認証
@@ -115,7 +115,7 @@ ghq はリポジトリを一元管理するツールです。
 
 - リポジトリが `~/ghq/github.com/owner/repo` のような統一された構成で管理される
 - `ghq list` で全リポジトリを一覧表示
-    - fzf と組み合わせるとリポジトリ間の移動が爆速になる
+    - fzf/peco と組み合わせるとリポジトリ間の移動が爆速になる
 
 ### 3.2. セットアップ
 
@@ -139,11 +139,13 @@ ghq get -p owner/repo
 # リポジトリの一覧を表示
 ghq list
 
-# fzf でリポジトリを選択して移動
+# fzf/peco でリポジトリを選択して移動
 cd "$(ghq root)/$(ghq list | fzf)"
+# または
+cd "$(ghq root)/$(ghq list | peco)"
 ```
 
-fzf を実行するとインタラクティブな選択画面が表示されます。
+fzf/peco を実行するとインタラクティブな選択画面が表示されます。
 
 - 文字を入力: リポジトリ名で絞り込み (あいまい検索)
 - `↑` / `↓` または `Ctrl-p` / `Ctrl-n`: 候補を移動
@@ -155,6 +157,8 @@ fzf を実行するとインタラクティブな選択画面が表示されま�
 ```bash
 # ~/.zshrc や ~/.bashrc に追加
 alias repo='cd "$(ghq root)/$(ghq list | fzf)"'
+# または
+alias repo='cd "$(ghq root)/$(ghq list | peco)"'
 ```
 
 これで `repo` と打つだけでリポジトリを選択して移動できます。
@@ -321,6 +325,11 @@ worktree-remove ../project-issue-123
 
 # 複数指定も可
 worktree-remove github.com/org/project-issue-123 github.com/org/project-pr-456
+
+# fzf/peco で選択して削除
+worktree-remove "$(ghq list | fzf)"
+# または
+worktree-remove "$(ghq list | peco)"
 ```
 
 出力例
@@ -450,7 +459,7 @@ cd ../project-issue-789-update-docs  # ドキュメント更新
 
 ### 6.2. worktree の定期削除
 
-不要な worktree を放置すると ghq + fzf の邪魔になるので定期的に削除するようにしましょう。
+不要な worktree を放置すると ghq + fzf/peco の邪魔になるので定期的に削除するようにしましょう。
 
 ```bash
 # worktree の一覧を確認
