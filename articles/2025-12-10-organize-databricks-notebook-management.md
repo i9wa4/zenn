@@ -359,8 +359,6 @@ from common.utils import greet  # 別階層からインポート可能
 既存のノートブックがある場合は、まず Source形式への変換を試してみてください。
 テストや再利用が必要になったら Skinny Notebook Wrapper パターンを導入しましょう。
 
-なお、Skinny Notebook Wrapper パターンをさらに強力にするツールを準備中ですので続報をお待ちください。
-
 ## 8. 関連記事
 
 ガードレール構成（mise + pre-commit + Renovate）については
