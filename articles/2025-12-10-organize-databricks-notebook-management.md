@@ -1,5 +1,5 @@
 ---
-title: "カオス化を防ぐDatabricksのノートブック管理方法"
+title: "Databricksのノートブック管理方法2選"
 emoji: "📓"
 type: "tech"
 topics:
@@ -8,7 +8,8 @@ topics:
   - "python"
   - "ruff"
 publication_name: "genda_jp"
-published: false
+published: true
+published_at: 2025-12-10 07:00
 ---
 
 ## 1. はじめに
@@ -18,27 +19,23 @@ published: false
 
 @[card](https://qiita.com/advent-calendar/2025/genda)
 
-Databricks ノートブックの Git diff が読めない、テストが書けない、
-そんな悩みを抱えていませんか？
+Databricks ノートブックで Git diff が読めない、テストが書けないのような課題感をもつ方がいらっしゃると思います。
 
-本記事では、2つの解決策を段階的に紹介します。
+本記事では、2つの解決策を紹介します。
 
-1. **Source形式** - ノートブックを `.py` 形式で保存
-2. **Thin Notebook Wrapper** - ロジックを別ファイルに分離
-
-まずは Source形式を試し、それでも足りない場合に
-Thin Notebook Wrapper パターンを検討してください。
+1. **Source形式** - ノートブックを `.py` 形式で保存（Git diff 問題を解決）
+2. **Skinny Notebook Wrapper** - ロジックを別ファイルに分離（テスト・再利用性を解決）
 
 ## 2. 従来のノートブック開発の課題
 
 デフォルトの IPYNB形式（`.ipynb`）は JSON ベースのため、
 通常の開発ツールが使いにくいです。
 
-| 項目 | IPYNB形式 | 理想 |
-|------|-----------|------|
+| 項目     | IPYNB形式         | 理想               |
+| ------   | -----------       | ------             |
 | Git diff | JSON で読みにくい | テキストで読みたい |
-| pytest | 実行困難 | 簡単にテストしたい |
-| IDE 補完 | 効きにくい | 完全に効かせたい |
+| pytest   | 実行困難          | 簡単にテストしたい |
+| IDE 補完 | 効きにくい        | 完全に効かせたい   |
 
 ※ Ruff（Linter/Formatter）は `.ipynb` をネイティブサポートしています。
 
@@ -69,12 +66,12 @@ Databricks がこのファイルをノートブックとして認識します。
 
 ### 3.2. IPYNB形式 vs Source形式
 
-| 項目 | IPYNB形式 | Source形式 |
-|------|-----------|------------|
-| ファイル形式 | JSON（`.ipynb`） | テキスト（`.py`等） |
-| Git diff | 読みにくい | 読みやすい |
-| 出力の保存 | 可能 | 不可 |
-| Ruff 対応 | ネイティブサポート | 通常の `.py` として対応 |
+| 項目         | IPYNB形式          | Source形式              |
+| ------       | -----------        | ------------            |
+| ファイル形式 | JSON（`.ipynb`）   | テキスト（`.py`等）     |
+| Git diff     | 読みにくい         | 読みやすい              |
+| 出力の保存   | 可能               | 不可                    |
+| Ruff 対応    | ネイティブサポート | 通常の `.py` として対応 |
 
 ### 3.3. Source形式への変更方法
 
@@ -84,8 +81,6 @@ File メニュー → Notebook format → Source を選択
 **デフォルト設定:**
 Settings → Developer → Editor settings で変更
 
-注意: IPYNB形式から Source形式に変換すると、セルの出力（実行結果）は失われます。
-
 ### 3.4. Source形式の限界
 
 Source形式で Git diff の問題は解決しますが、以下は残ります。
@@ -94,16 +89,16 @@ Source形式で Git diff の問題は解決しますが、以下は残ります�
 - `dbutils` / `spark` 依存によるテスト困難
 - コードの再利用性
 
-これらを解決するには、次の Thin Notebook Wrapper パターンが有効です。
+これらを解決するには、次の Skinny Notebook Wrapper パターンが有効です。
 
-## 4. 解決策2: Thin Notebook Wrapper パターン
+## 4. 解決策2: Skinny Notebook Wrapper パターン
 
 ### 4.1. 基本的な考え方
 
-**Thin Notebook Wrapper** とは、ノートブックを「薄いラッパー」として扱い、
+**Skinny Notebook Wrapper** とは、ノートブックを「薄いラッパー」として扱い、
 実際のロジックは `.py` ファイルに書くパターンです。
-Web 開発における「Thin Controller」（コントローラーは処理を振り分けるだけで、
-ビジネスロジックは別のレイヤーに書く設計）と同じ考え方です。
+Web 開発における「Skinny Controller, Fat Model」（コントローラーは処理を振り分けるだけで、
+ビジネスロジックはモデル層に書く設計）と同じ考え方です。
 
 ```text
 project/
@@ -119,11 +114,11 @@ project/
 
 ロジックを `.py` に切り出しても、ノートブックは以下の理由で便利です。
 
-| 役割 | ノートブック | .py ファイル |
-|------|-------------|--------------|
-| Widget パラメータ | ○ | × |
-| Databricks UI でのデバッグ | ○ | × |
-| テスト | × | ○ |
+| 役割                       | ノートブック  | .py ファイル   |
+| ------                     | ------------- | -------------- |
+| Widget パラメータ          | ○            | ×             |
+| Databricks UI でのデバッグ | ○            | ×             |
+| テスト                     | ×            | ○             |
 
 Databricks Job では、ノートブックは Notebook Task、`.py` ファイルは `spark_python_task` で実行できます。
 ただし Widget パラメータはノートブックでのみ使えます。
@@ -131,22 +126,30 @@ Databricks Job では、ノートブックは Notebook Task、`.py` ファイル
 つまり、ノートブックは「Job のエントリーポイント」として残しつつ、
 ロジックは `.py` に書くのがベストです。
 
-### 4.3. launcher はたった2セル
+### 4.3. launcher の例
 
 Databricks Repos / Git Folders を使う場合の例です。
 （Workspace Files の場合は `sys.path` 設定が必要。詳細はセクション6参照）
 
+**Cell 1: Widget 定義**
+
+Widget はノートブックにパラメータ入力用の UI を追加する機能です。
+`dbutils.widgets.text(変数名, デフォルト値, ラベル)` でテキスト入力欄を作成し、
+`dbutils.widgets.get(変数名)` で値を取得できます。
+
 ```python
-# Cell 1: Widget定義
 dbutils.widgets.text("table_name", "samples.nyctaxi.trips", "Table Name")
 dbutils.widgets.text("limit", "10", "Limit")
 ```
 
+**Cell 2: main() 実行**
+
+Widget で定義したパラメータを取得し、ロジック（`main.py`）に渡します。
+Widget は常に文字列を返すため、数値が必要な場合は `int()` で変換します。
+
 ```python
-# Cell 2: main() 実行
 from main import main
 
-# Widget は文字列を返すため、必要に応じて型変換
 main(
     table_name=dbutils.widgets.get("table_name"),
     limit=int(dbutils.widgets.get("limit")),
@@ -248,6 +251,12 @@ Databricks 環境では `spark` と `dbutils` が事前定義されています�
 Ruff は静的解析ツールなのでこれを認識できません。
 `per-file-ignores` でノートブックのみ F821 を無視します。
 
+Skinny Notebook Wrapper パターンでは、`dbutils` はノートブック内でのみ使用し、
+Widget の値を引数としてロジック側に渡します。
+ロジック側の `.py` ファイルは `dbutils` に依存しないため、F821 抑制は不要です。
+`spark` も `SparkSession.builder.getOrCreate()` で取得するため、
+事前定義変数への依存がなくなります。
+
 ### 5.2. pyproject.toml の設定例
 
 ```toml
@@ -269,7 +278,8 @@ select = [
 # IPYNB形式の場合（全ての .ipynb に適用）
 "*.ipynb" = ["F821"]
 # Source形式の場合（ノートブック用 .py のみ指定。通常の .py には適用しない）
-"launcher.py" = ["F821"]
+# E402: セル区切りにより import が先頭に来ないため
+"notebooks/*.py" = ["F821", "E402"]
 ```
 
 Ruff は `.ipynb` ファイルをネイティブサポートしているため、
@@ -299,46 +309,57 @@ Databricks Repos（現在は Git Folders と呼ばれています）を使うと
 
 ※ ノートブックと `.py` ファイルが同じディレクトリにあるフラット構成を前提とします。
 
-### 6.2. Workspace Files を使う場合
+### 6.2. 階層構造のインポート（Git Folders）
 
-Workspace Files（`/Workspace/Users/...`）を使う場合は、
-ノートブックのパスから相対的にプロジェクトルートを計算します。
+プロジェクトが大きくなると、ディレクトリを分けたくなります。
+Git Folders を使えば、階層構造でも問題なくインポートできます。
 
-```python
-import os
-import sys
-
-# ノートブックのパスを取得（/Workspace プレフィックスなし）
-# 例: /Users/your-name/project/launcher
-notebook_context = dbutils.notebook.entry_point.getDbutils().notebook().getContext()
-notebook_path = notebook_context.notebookPath().get()
-
-# /Workspace プレフィックスを付けてフルパスに変換
-# 例: /Workspace/Users/your-name/project
-PROJECT_ROOT = f"/Workspace{os.path.dirname(notebook_path)}"
-
-if PROJECT_ROOT not in sys.path:
-    sys.path.insert(0, PROJECT_ROOT)
+```text
+project/
+├── notebooks/
+│   └── launcher.ipynb   # ノートブック
+├── src/
+│   └── main.py          # メインロジック
+├── common/
+│   └── utils.py         # 共通ユーティリティ
+└── tests/
+    └── test_main.py     # テストコード
 ```
 
-注意: 上記はノートブックと `.py` ファイルが同じディレクトリにある
-フラット構成を前提としています。
+```python
+# notebooks/launcher.ipynb (Cell 2)
+from src.main import main
+
+main(
+    table_name=dbutils.widgets.get("table_name"),
+    limit=int(dbutils.widgets.get("limit")),
+)
+```
+
+```python
+# src/main.py
+from common.utils import greet  # 別階層からインポート可能
+```
+
+この構成は Databricks Job（Git Folders 経由）でも動作確認済みです。
+ローカルの pytest と Databricks Job の両方で同じコードが使えます。
 
 ## 7. まとめ
 
-### Source形式で解決できること
+### 7.1. Source形式で解決できること
 
 - Git diff が読みやすくなる
 - Ruff で通常の `.py` としてチェック可能
 
-### Thin Notebook Wrapper で解決できること
+### 7.2. Skinny Notebook Wrapper で解決できること
 
 - ロジックの分離によるテスト可能性
 - コードの再利用性向上
-- IDE 補完の完全動作
 
 既存のノートブックがある場合は、まず Source形式への変換を試してみてください。
-テストや再利用が必要になったら Thin Notebook Wrapper パターンを導入しましょう。
+テストや再利用が必要になったら Skinny Notebook Wrapper パターンを導入しましょう。
+
+なお、Skinny Notebook Wrapper パターンをさらに強力にするツールを準備中ですので続報をお待ちください。
 
 ## 8. 関連記事
 
@@ -347,6 +368,6 @@ if PROJECT_ROOT not in sys.path:
 
 @[card](https://zenn.dev/genda_jp/articles/2025-12-06-ai-guardrails-local-cloud)
 
-## 参考
+## 9. 参考
 
 - [Manage notebook format | Databricks Documentation](https://docs.databricks.com/aws/en/notebooks/notebook-format)
