@@ -158,7 +158,7 @@ dbr = [
 
 - `dependencies`: Databricks にインストールするパッケージ
 - `dev`: ローカル開発ツール
-- `dbr`: DBR プリインストール済みパッケージ
+- `dbr`: Databricks Runtime (DBR) プリインストール済みパッケージ
     - ローカルと DBR のバージョン整合性を保つために記載
     - `uv export --no-dev` でも含まれない（デフォルトで除外）
 
