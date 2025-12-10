@@ -69,8 +69,7 @@ repos:
 
 ### 3.2. requirements.txt 動的生成
 
-DBR には uv がプリインストールされていませんが、
-クラスタ内で uv をインストールして動的生成することも可能です。
+uv をインストールしておき動的生成することも可能です。
 
 ```python
 %pip install uv
