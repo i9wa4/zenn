@@ -32,13 +32,9 @@ uv は Rust 製の高速な Python パッケージマネージャです。
 - `uv.lock` による再現可能な依存関係管理
 - Python バージョン管理も可能
 
-## 3. 依存関係を固定する
+## 3. uv を使った Databricks でのパッケージ管理
 
-Databricks では `%pip install` でパッケージをインストールしますが、
-`uv.lock` を直接読み込むことはできません。
-そのため、`uv.lock` から `requirements.txt` を生成して使用します。
-
-### 3.1. 事前生成
+### 3.1. requirements.txt 事前生成
 
 `uv.lock` から `requirements.txt` を生成し、リポジトリにコミットしておきます。
 
@@ -71,7 +67,7 @@ repos:
 
 - PR で依存関係の変更が見やすい
 
-### 3.2. 動的生成
+### 3.2. requirements.txt 動的生成
 
 DBR には uv がプリインストールされていませんが、
 クラスタ内で uv をインストールして動的生成することも可能です。
