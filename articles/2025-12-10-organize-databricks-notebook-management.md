@@ -129,9 +129,8 @@ Databricks Repos / Git Folders を使う場合の例です。
 
 **Cell 1: Widget 定義**
 
-Widget はノートブックにパラメータ入力用の UI を追加する機能です。
-`dbutils.widgets.text(変数名, デフォルト値, ラベル)` でテキスト入力欄を作成し、
-`dbutils.widgets.get(変数名)` で値を取得できます。
+`dbutils.widgets.text()` でパラメータとデフォルト値を定義します。
+Job 実行時はデフォルト値が使われます。
 
 ```python
 dbutils.widgets.text("table_name", "samples.nyctaxi.trips", "Table Name")
