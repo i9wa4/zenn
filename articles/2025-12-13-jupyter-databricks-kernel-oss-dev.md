@@ -135,7 +135,7 @@ on:
 
 Open Issue として以下を検討中です。
 
-- 理想的な Databricks プロジェクト構成の模索 (Thin Notebook Wrapper + Pure Python)
+- 理想的な Databricks プロジェクト構成の模索 (Skinny Notebook Wrapper + Pure Python)
 - Python 3.11 サポート終了対応 (DBR 15.4 LTS、2027年)
 
 ## 7. おわりに
