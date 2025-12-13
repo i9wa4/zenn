@@ -95,39 +95,70 @@ print(result.stdout)
 
 - 毎回 uv のダウンロードが発生する
 
-### 3.3. uv sync / uv run について（参考）
+### 3.3. uv sync / uv run について
 
-ローカル開発では `uv sync` で仮想環境を作成し、`uv run` でスクリプトを実行するのが一般的です。
-Databricks でも同様のワークフローが使えるか検証しました。
+ローカル開発では `uv sync` で仮想環境を作成し、
+`uv run` でスクリプトを実行するのが一般的です。
+Databricks でも `--active` オプションを使うことで同様のワークフローが使えます。
 
 ```python
-# uv sync は成功する
-result = subprocess.run(
-    ["uv", "sync"],
-    cwd="/Workspace/Repos/<user>/<repo>",
-    capture_output=True,
-    text=True
-)
-# .venv が作成され、パッケージがインストールされる
+%pip install uv
 ```
 
 ```python
-# uv run は失敗する
+import subprocess
+
+# uv sync --active で Databricks 既存環境にインストール
 result = subprocess.run(
-    ["uv", "run", "python", "-c", "import httpx; print(httpx.__version__)"],
-    cwd="/Workspace/Repos/<user>/<repo>",
+    ["uv", "sync", "--no-dev", "--active"],
     capture_output=True,
     text=True
 )
-# error: Failed to spawn: `python`
-# Caused by: Invalid cross-device link (os error 18)
 ```
 
-`uv sync` は成功しますが、`uv run` は失敗します。
+```python
+# uv run --active で実行
+result = subprocess.run(
+    ["uv", "run", "--no-dev", "--active", "python", "-c",
+     "import httpx; print(httpx.__version__)"],
+    capture_output=True,
+    text=True
+)
+print(result.stdout)  # 0.28.1
+```
+
+`--active` オプションは、新しい `.venv` を作成せず、
+現在アクティブな仮想環境（`VIRTUAL_ENV` 環境変数で指定された環境）を使用します。
+
+Databricks ノートブック環境では、既に `/local_disk0/` 上に
+仮想環境がアクティブになっているため、
+`/Workspace`（NFS）上に `.venv` を作成する際の問題を回避できます。
+
+#### 3.3.1. --active 使用時の注意点
+
+- Python バージョンの整合性
+    - `requires-python` を DBR の Python バージョンに合わせる
+    - 例: DBR 17.3 LTS は Python 3.12.3
+- DBR プリインストールパッケージとの競合
+    - `dependencies` には DBR にないパッケージのみ記載する
+    - pandas, numpy 等は DBR にプリインストール済み
+- クラスター再起動でリセット
+    - インストールしたパッケージはクラスター再起動で消える
+    - ノートブック実行時に毎回 `uv sync --active` が必要
+
+#### 3.3.2. --active なしの場合（参考）
+
+~~`--active` オプションなしで `uv sync` を実行すると、
+`/Workspace` 上に `.venv` が作成されます。~~
+
+~~`uv sync` は成功しますが、`uv run` は失敗します。
 これは `/Workspace` がネットワークファイルシステムであり、
-ハードリンクの作成に制限があるためです。
+`.venv/bin/python` のシンボリックリンクの正規化で
+`os error 18` (Invalid cross-device link) が発生するためです。~~
 
-結論として、Databricks では `requirements.txt` 経由での `%pip install` が最も安定した方法です。
+~~`--link-mode=copy` オプションを使ってもこの問題は解決できません。
+`--link-mode=copy` はパッケージのインストール時のリンクモードを制御しますが、
+Python インタープリタへのシンボリックリンクは別の仕組みで作られるためです。~~
 
 ## 4. pyproject.toml の構成
 
