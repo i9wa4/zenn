@@ -32,9 +32,60 @@ uv は Rust 製の高速な Python パッケージマネージャです。
 - `uv.lock` による再現可能な依存関係管理
 - Python バージョン管理も可能
 
-## 3. uv を使った Databricks でのパッケージ管理
+## 3. Databricks でのパッケージ管理方法
 
-### 3.1. requirements.txt 事前生成
+本記事では3つの方法を紹介します。
+
+| 方法                      | 概要                       | おすすめ度   |
+| ------                    | ------                     | ------------ |
+| uv sync --active          | ローカルと同じワークフロー | ★★★       |
+| requirements.txt 事前生成 | PR で差分確認可能          | ★★☆       |
+| requirements.txt 動的生成 | ファイル管理不要           | ★☆☆       |
+
+### 3.1. uv sync --active (おすすめ)
+
+`--active` オプションを使うと、Databricks の既存環境に直接インストールできます。
+
+```python
+%pip install uv
+```
+
+```python
+import subprocess
+
+result = subprocess.run(
+    ["uv", "sync", "--no-dev", "--active"],
+    capture_output=True,
+    text=True
+)
+```
+
+`--active` オプションは、新しい `.venv` を作成せず、
+現在アクティブな仮想環境 (`VIRTUAL_ENV` 環境変数で指定された環境) を使用します。
+
+Databricks ノートブック環境では、既に `/local_disk0/` 上に
+仮想環境がアクティブになっているため、
+`/Workspace` 上に `.venv` を作成する際の問題を回避できます。
+
+メリット
+
+- ローカル開発と同じワークフロー
+- `uv.lock` から直接インストールするため整合性が保証される
+
+デメリット
+
+- 毎回 uv のダウンロードが発生する
+
+#### 3.1.1. 注意点
+
+- Python バージョンの整合性
+    - `requires-python` を DBR の Python バージョンに合わせる
+    - 例: DBR 17.3 LTS は Python 3.12.3
+- DBR プリインストールパッケージとの競合
+    - `dependencies` には DBR にないパッケージのみ記載する
+    - pandas, numpy 等は DBR にプリインストール済み
+
+### 3.2. requirements.txt 事前生成
 
 `uv.lock` から `requirements.txt` を生成し、リポジトリにコミットしておきます。
 
@@ -66,8 +117,13 @@ repos:
 メリット
 
 - PR で依存関係の変更が見やすい
+- uv のインストールが不要
 
-### 3.2. requirements.txt 動的生成
+デメリット
+
+- requirements.txt の生成忘れリスク
+
+### 3.3. requirements.txt 動的生成
 
 uv をインストールしておき動的生成することも可能です。
 
@@ -86,79 +142,7 @@ result = subprocess.run(
 print(result.stdout)
 ```
 
-メリット
-
-- requirements.txt の管理が不要
-- 常に uv.lock から生成するため整合性が保証される
-
-デメリット
-
-- 毎回 uv のダウンロードが発生する
-
-### 3.3. uv sync / uv run について
-
-ローカル開発では `uv sync` で仮想環境を作成し、
-`uv run` でスクリプトを実行するのが一般的です。
-Databricks でも `--active` オプションを使うことで同様のワークフローが使えます。
-
-```python
-%pip install uv
-```
-
-```python
-import subprocess
-
-# uv sync --active で Databricks 既存環境にインストール
-result = subprocess.run(
-    ["uv", "sync", "--no-dev", "--active"],
-    capture_output=True,
-    text=True
-)
-```
-
-```python
-# uv run --active で実行
-result = subprocess.run(
-    ["uv", "run", "--no-dev", "--active", "python", "-c",
-     "import httpx; print(httpx.__version__)"],
-    capture_output=True,
-    text=True
-)
-print(result.stdout)  # 0.28.1
-```
-
-`--active` オプションは、新しい `.venv` を作成せず、
-現在アクティブな仮想環境（`VIRTUAL_ENV` 環境変数で指定された環境）を使用します。
-
-Databricks ノートブック環境では、既に `/local_disk0/` 上に
-仮想環境がアクティブになっているため、
-`/Workspace`（NFS）上に `.venv` を作成する際の問題を回避できます。
-
-#### 3.3.1. --active 使用時の注意点
-
-- Python バージョンの整合性
-    - `requires-python` を DBR の Python バージョンに合わせる
-    - 例: DBR 17.3 LTS は Python 3.12.3
-- DBR プリインストールパッケージとの競合
-    - `dependencies` には DBR にないパッケージのみ記載する
-    - pandas, numpy 等は DBR にプリインストール済み
-- クラスター再起動でリセット
-    - インストールしたパッケージはクラスター再起動で消える
-    - ノートブック実行時に毎回 `uv sync --active` が必要
-
-#### 3.3.2. --active なしの場合（参考）
-
-~~`--active` オプションなしで `uv sync` を実行すると、
-`/Workspace` 上に `.venv` が作成されます。~~
-
-~~`uv sync` は成功しますが、`uv run` は失敗します。
-これは `/Workspace` がネットワークファイルシステムであり、
-`.venv/bin/python` のシンボリックリンクの正規化で
-`os error 18` (Invalid cross-device link) が発生するためです。~~
-
-~~`--link-mode=copy` オプションを使ってもこの問題は解決できません。
-`--link-mode=copy` はパッケージのインストール時のリンクモードを制御しますが、
-Python インタープリタへのシンボリックリンクは別の仕組みで作られるためです。~~
+そもそも `uv sync --active` が動くのであれば特にこの方法を選ぶ利点はありません。
 
 ## 4. pyproject.toml の構成
 
@@ -191,7 +175,7 @@ dbr = [
 - `dev`: ローカル開発ツール
 - `dbr`: Databricks Runtime (DBR) プリインストール済みパッケージ
     - バージョン整合性を保つために記載
-    - `uv export --no-dev` でも含まれない（デフォルトで除外）
+    - `uv export --no-dev` でも含まれない (デフォルトで除外)
 
 ## 5. まとめ
 
