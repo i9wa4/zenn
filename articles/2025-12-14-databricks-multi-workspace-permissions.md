@@ -16,6 +16,10 @@ published_at: 2025-12-14 07:00
 
 @[card](https://qiita.com/advent-calendar/2025/genda)
 
+ならびに Databricks Advent Calendar 2025 シリーズ2 Day 14 の記事です。
+
+@[card](https://qiita.com/advent-calendar/2025/databricks)
+
 ### 1.1. この記事について
 
 最近 Databricks の権限設計を見直す機会がありました。
