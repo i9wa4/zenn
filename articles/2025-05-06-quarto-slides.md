@@ -9,6 +9,12 @@ topics:
 published: true
 ---
 
+:::message alert
+**Deprecated**: この記事の内容は古くなっています。最新の情報は以下の記事を参照してください。
+
+https://i9wa4.github.io/blog/2025-12-15-uv-quarto-intro.html
+:::
+
 ## 1. はじめに
 
 最近 AI にスライドを生成させたいという声をよく聞くようになりましたので、私の好きな Markdown ライクなツールである Quarto でスライドを作成する方法を紹介します。
