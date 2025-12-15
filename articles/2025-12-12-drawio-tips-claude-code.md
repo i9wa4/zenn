@@ -10,6 +10,12 @@ published: true
 published_at: 2025-12-12 07:00
 ---
 
+:::message
+[2025-12-16 追記] 手っ取り早く手元で使いたい方は「6.1. drawio CLI のインストール」を済ませてこちらの記事をチェック！
+
+@[card](https://zenn.dev/genda_jp/articles/2025-12-15-drawio-skills-claude-code)
+:::
+
 ## 1. はじめに
 
 株式会社GENDA データエンジニア / MLOps エンジニアの uma-chan です。
