@@ -134,14 +134,14 @@ https://learn.microsoft.com/en-us/azure/well-architected/architect-role/design-d
 
 ## 4. 使用方法
 
-Skill を配置したら、あとは普通に依頼するだけです。
+Skills を配置したら、あとは普通に依頼するだけです。
 
 ```text
 AWS のサービスのみを使用した、よくあるできるだけ複雑なデータパイプラインのアーキテクチャ図を draw.io 形式で作成してください。
 サービス同士がスパゲッティのように矢印で接続しているような複雑な図が見たいです。
 ```
 
-[![aws-architecture-diagram](/images/2025-12-15-drawio-skills-claude-code/aws-data-pipeline.drawio.png)](/images/2025-12-15-drawio-skills-claude-code/aws-data-pipeline.drawio.png)
+![aws-architecture-diagram](/images/2025-12-15-drawio-skills-claude-code/aws-data-pipeline.drawio.png)
 *とんでもないことになった……*
 
 ## 5. おわりに
