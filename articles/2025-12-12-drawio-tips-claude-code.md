@@ -11,7 +11,7 @@ published_at: 2025-12-12 07:00
 ---
 
 :::message
-[2025-12-16 追記] 手っ取り早く手元で使いたい方は「6.1. drawio CLI のインストール」を済ませてこちらの記事をチェック！
+[2025-12-16 追記] 手っ取り早く手元で使いたい方は「6.1. drawio のインストール」を済ませてこちらの記事をチェック！
 
 @[card](https://zenn.dev/genda_jp/articles/2025-12-15-drawio-skills-claude-code)
 :::
@@ -212,9 +212,9 @@ PDF やスライドで表示する場合、標準のフォントサイズでは�
 
 ## 6. PNG 変換と視覚確認
 
-### 6.1. drawio CLI のインストール
+### 6.1. draw.io のインストール
 
-PNG 変換には draw.io のコマンドラインツールが必要です。
+PNG 変換には draw.io が必要です。
 
 macOS の場合
 
@@ -222,7 +222,7 @@ macOS の場合
 brew install --cask drawio
 ```
 
-Linux の場合は [公式リリースページ](https://github.com/jgraph/drawio-desktop/releases) から .deb や .AppImage をダウンロードしてください。
+macOS 以外の場合は [公式リリースページ](https://github.com/jgraph/drawio-desktop/releases) からダウンロードしてください。
 
 ### 6.2. pre-commit hook で自動変換
 
