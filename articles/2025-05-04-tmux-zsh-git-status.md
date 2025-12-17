@@ -267,4 +267,3 @@ PROMPT="${PROMPT}%F{#696969}%D{[%Y-%m-%d %H:%M:%S]} ${_shell_type} %f%K{#198CAA}
 https://github.com/i9wa4/dotfiles/blob/8cadb966fea3499926a0d9bacebd4179c57d2326/dot.config/tmux/tmux.conf
 
 https://github.com/i9wa4/dotfiles/blob/5888691c07aea3a41cb44c0ec20500c8cb0c9ac2/dot.zshrc
-
