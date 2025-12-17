@@ -13,7 +13,7 @@
     "is-wsl": "^3.1.0",
     "open": "^10.2.0",
     "run-applescript": "^7.1.0",
-    "wsl-utils": "^0.1.0",
+    "wsl-utils": "^0.3.0",
     "zenn-cli": "^0.2.11"
   },
   "scripts": {
