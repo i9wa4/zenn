@@ -8,7 +8,7 @@
     "default-browser": "^5.4.0",
     "default-browser-id": "^5.0.1",
     "define-lazy-prop": "^3.0.0",
-    "is-docker": "^3.0.0",
+    "is-docker": "^4.0.0",
     "is-inside-container": "^1.0.0",
     "is-wsl": "^3.1.0",
     "open": "^10.2.0",
