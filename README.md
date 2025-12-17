@@ -2,21 +2,17 @@
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/i9wa4/zenn-i9wa4)
 
-## 1. 起動時
+## 1. Getting Started
 
 ```console
 npm ci
 
-# 初回のみ
+# First time only
 npm run init
 ```
 
-## 2. プレビュー
+## 2. Preview
 
 ```console
 npm run preview
 ```
-
-以下にアクセスする
-
-<http://localhost:8000>
