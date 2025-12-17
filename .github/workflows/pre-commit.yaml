@@ -46,7 +46,10 @@ jobs:
       - name: Setup safe-chain
         run: |
           curl -fsSL https://github.com/AikidoSec/safe-chain/releases/latest/download/install-safe-chain.sh | sh
+          echo "$HOME/.safe-chain/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.safe-chain/bin:$PATH"
           safe-chain setup-ci
+          echo "$HOME/.safe-chain/shims" >> "$GITHUB_PATH"
 
       - name: Install dependencies
         run: npm install
