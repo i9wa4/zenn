@@ -43,6 +43,14 @@ jobs:
           install_args: --yes
           cache: true
 
+      - name: Setup safe-chain
+        run: |
+          curl -fsSL https://github.com/AikidoSec/safe-chain/releases/latest/download/install-safe-chain.sh | sh
+          safe-chain setup-ci
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Cache pre-commit
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
         with:

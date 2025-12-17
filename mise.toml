@@ -1,4 +1,7 @@
 [tools]
+# Runtime
+node = "24"
+
 # Development tools
 pre-commit = "4.5.1"
 
