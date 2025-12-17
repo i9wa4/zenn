@@ -1,7 +1,7 @@
 {
   "name": "zenn",
   "version": "1.0.0",
-  "description": "[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/i9wa4/zenn-i9wa4)",
+  "description": "[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/i9wa4/zenn)",
   "main": "index.js",
   "dependencies": {
     "bundle-name": "^4.1.0",

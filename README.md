@@ -1,6 +1,6 @@
 # Zenn CLI
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/i9wa4/zenn-i9wa4)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/i9wa4/zenn)
 
 ## 1. Getting Started
 
