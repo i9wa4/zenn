@@ -17,7 +17,11 @@
     "zenn-cli": "^0.2.11"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "zenn init",
+    "preview": "zenn preview",
+    "new:article": "zenn new:article",
+    "new:book": "zenn new:book",
+    "list:articles": "zenn list:articles"
   },
   "repository": {
     "type": "git",

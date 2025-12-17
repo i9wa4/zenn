@@ -6,13 +6,13 @@
 
 ```console
 npm install
-zenn init
+npm run init
 ```
 
 ## 2. プレビュー
 
 ```console
-zenn preview
+npm run preview
 ```
 
 以下にアクセスする
