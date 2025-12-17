@@ -4,16 +4,15 @@
 
 ## 1. 初回セットアップ
 
-```sh
-$ npm init --yes
-$ npm install zenn-cli
-$ npx zenn init
+```console
+npm install
+zenn init
 ```
 
 ## 2. プレビュー
 
-```sh
-$ npx zenn preview
+```console
+zenn preview
 ```
 
 以下にアクセスする

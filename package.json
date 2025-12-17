@@ -1,24 +1,34 @@
 {
-  "name": "zenn-i9wa4",
+  "name": "zenn",
   "version": "1.0.0",
+  "description": "[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/i9wa4/zenn-i9wa4)",
   "main": "index.js",
+  "dependencies": {
+    "bundle-name": "^4.1.0",
+    "default-browser": "^5.4.0",
+    "default-browser-id": "^5.0.1",
+    "define-lazy-prop": "^3.0.0",
+    "is-docker": "^3.0.0",
+    "is-inside-container": "^1.0.0",
+    "is-wsl": "^3.1.0",
+    "open": "^10.2.0",
+    "run-applescript": "^7.1.0",
+    "wsl-utils": "^0.1.0",
+    "zenn-cli": "^0.2.11"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/i9wa4/zenn.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/i9wa4/zenn-i9wa4)",
-  "dependencies": {
-    "zenn-cli": "^0.2.10"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/i9wa4/zenn-i9wa4.git"
-  },
+  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/i9wa4/zenn-i9wa4/issues"
+    "url": "https://github.com/i9wa4/zenn/issues"
   },
-  "homepage": "https://github.com/i9wa4/zenn-i9wa4#readme",
-  "type": "commonjs"
+  "homepage": "https://github.com/i9wa4/zenn#readme"
 }
