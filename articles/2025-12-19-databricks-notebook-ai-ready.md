@@ -28,17 +28,6 @@ Databricks Notebook は手軽にデータ分析や機械学習のプロトタイ
 
 以下で Databricks Notebook 開発を AI-Ready にするための4つの改善策を紹介します。
 
-### 1.1. 本記事の新しい観点
-
-AI コーディングアシスタントとの連携や一般的な Python と同等の開発環境を整備するという視点から開発環境を見直します。
-
-具体的には以下のようなアプローチを紹介します。
-
-- 既存の Databricks 公式の VS Code 拡張や Databricks Connect ではなく新たに Jupyter Kernel を開発し完全ローカル開発環境を実現させる
-- ノートブックを関数実行用に利用し、ロジックは Python に切り出すことで一般的な Python 開発と同等の品質管理とテストの恩恵を受ける
-- パッケージマネージャー uv を Databricks 環境で活用する
-- AI が生成したコードの品質を担保するガードレールを整備する
-
 ## 2. 課題提起
 
 ### 2.1. 従来の Databricks Notebook 開発の課題
@@ -54,25 +43,13 @@ Databricks Notebook をそのまま使った開発には、以下のような課
     - テストコードの管理が複雑
     - コードレビューがしづらい
 3. 依存関係管理の複雑さ
-    - ノートブックごとに pip install が散らばる
-    - バージョン固定が不完全
-    - 再現性の確保が困難
+    - 依存関係を解消しバージョン固定することの難易度は想像以上に高く、突然動かなくなるリスクがある
 
 ### 2.2. AI 時代の新たな課題
 
-GitHub Copilot や Claude Code などの AI コーディングアシスタントが登場し、開発生産性が大きく向上しました。しかし、Databricks Notebook 環境では以下の理由から AI ツールの恩恵を受けにくい状況があります。
+Claude Code や Cursor などの AI コーディングアシスタントが登場し、開発生産性が大きく向上しましたが、Databricks Notebook 環境では AI ツールの恩恵を受けにくい状況があります。
 
-1. AI ツールとの連携が困難
-    - Databricks 上のノートブックでは AI アシスタントが動作しない、または制限がある
-    - ローカルの AI ツールから Databricks Compute に接続できない
-2. コンテキストの断絶
-    - ノートブック内にロジックが散在していると AI がコード全体を理解しにくい
-    - Pure Python ファイルに比べてコード補完の精度が落ちる
-3. ガードレールの欠如
-    - AI が生成したコードの品質チェックが手動になりがち
-    - セキュリティリスクのあるコードが混入する可能性
-
-これらの課題を解決し、AI ツールを最大限活用できる「AI-Ready」な開発環境を構築していきましょう。
+ローカルの AI ツールから Databricks 上のコードを実行する既存の方法 (Databricks Connect、VS Code 拡張など) には、それぞれ制約があります。詳細は改善策1で説明します。
 
 ## 3. 改善策1: jupyter-databricks-kernel
 
@@ -82,25 +59,25 @@ GitHub Copilot や Claude Code などの AI コーディングアシスタント
 
 @[card](https://github.com/i9wa4/jupyter-databricks-kernel)
 
-Jupyter における「カーネル」とは、ノートブックのセルを処理し、結果をフロントエンド（VS Code など）に送信するコンポーネントです。
+Jupyter におけるカーネルとは、ノートブックのセルを処理し、結果をフロントエンド (VS Code や JupyterLab など) に送信するコンポーネントです。
 
-`jupyter-databricks-kernel` は、ローカルの Jupyter 環境から Databricks Compute に接続できるカーネルを提供します。これにより、以下のようなコマンドでノートブックを実行できます。
+`jupyter-databricks-kernel` は、ローカルの Jupyter 環境から Databricks Compute (all-purpose) に接続できるカーネルを提供します。これにより、以下のようなコマンドでノートブックを実行できます。
 
 ```sh
-jupyter execute notebook.ipynb
+jupyter execute notebook.ipynb --kernel_name=databricks --inplace
 ```
 
 ### 3.2. 既存アプローチとの違い
 
 Databricks でのローカル開発には、公式の VS Code 拡張や Databricks Connect といったアプローチがあります。`jupyter-databricks-kernel` はこれらとは異なる特徴を持っています。
 
-| アプローチ | 特徴 |
-|-----------|------|
-| Databricks VS Code 拡張 | Databricks 専用、VS Code 限定 |
-| Databricks Connect | Spark セッションをローカルから接続、PySpark コード向け |
+| アプローチ                | 特徴                                                                       |
+| -----------               | ------                                                                     |
+| Databricks VS Code 拡張   | VS Code 限定                                                               |
+| Databricks Connect        | Spark セッションをローカルから接続、PySpark コード向け                     |
 | jupyter-databricks-kernel | 標準的な Jupyter カーネルとして動作、あらゆる Jupyter 対応ツールで利用可能 |
 
-標準的な Jupyter カーネルとして実装しているため、VS Code だけでなく JupyterLab、Claude Code など Jupyter に対応したあらゆるツールから利用できます。
+標準的な Jupyter カーネルとして実装しているため特定のツールに依存せず利用できます。
 
 ### 3.3. メリット
 
@@ -148,7 +125,7 @@ Databricks でのローカル開発には、公式の VS Code 拡張や Databric
 
 ノートブックは便利ですが、ロジックをすべてノートブックに書くと管理が難しくなります。そこで推奨するのが「Skinny Notebook Wrapper」パターンです。
 
-これは Web 開発における「Skinny Controller, Fat Model」（コントローラーは処理を振り分けるだけで、ビジネスロジックはモデル層に書く設計）と同じ考え方です。
+これは Web 開発における「Skinny Controller, Fat Model」(コントローラーは処理を振り分けるだけで、ビジネスロジックはモデル層に書く設計)と同じ考え方です。
 
 - ノートブックは「薄いラッパー」として使い続ける
 - メインロジックは `.py` ファイルに切り出す
@@ -171,13 +148,13 @@ Databricks でのローカル開発には、公式の VS Code 拡張や Databric
 
 ```text
 project/
-├── launcher.py       # 薄いラッパー（Source形式ノートブック）
-├── main.py           # メインロジック（通常の Python ファイル）
+├── launcher.py       # 薄いラッパー(Source形式ノートブック)
+├── main.py           # メインロジック(通常の Python ファイル)
 ├── test_main.py      # テストコード
 └── pyproject.toml    # Ruff 設定等
 ```
 
-### 4.4. launcher（ノートブック）の例
+### 4.4. launcher(ノートブック)の例
 
 **Cell 1: Widget 定義**
 
@@ -190,7 +167,7 @@ dbutils.widgets.text("limit", "10", "Limit")
 
 **Cell 2: main() 実行**
 
-Widget で定義したパラメータを取得し、ロジック（`main.py`）に渡します。
+Widget で定義したパラメータを取得し、ロジック(`main.py`)に渡します。
 
 ```python
 from main import main
@@ -203,7 +180,7 @@ main(
 
 ポイント
 
-- `dbutils` は Databricks が事前定義（再生成不要）
+- `dbutils` は Databricks が事前定義(再生成不要)
 - ノートブックは「起動装置」に徹する
 - パラメータは Widget 経由で受け取り、ロジックに渡す
 
@@ -221,7 +198,7 @@ def load_table(spark: SparkSession, table_name: str, limit: int) -> DataFrame:
 
 
 def main(table_name: str, limit: int = 10) -> None:
-    """メイン処理（ノートブックから呼ばれる）"""
+    """メイン処理(ノートブックから呼ばれる)"""
     spark = SparkSession.builder.getOrCreate()
     df = load_table(spark, table_name, limit)
     df.show()
@@ -266,7 +243,7 @@ pytest test_main.py
 
 1. コード品質の向上
     - Pure Python ファイルには Linter / Formatter が適用しやすい
-    - 静的解析ツール（mypy など）も活用可能
+    - 静的解析ツール(mypy など)も活用可能
 
 2. テスタビリティの向上
     - pytest などの標準的なテストフレームワークが使える
@@ -305,7 +282,7 @@ uv は Rust 製の高速な Python パッケージマネージャです。2024 �
 | requirements.txt 事前生成 | PR で差分確認可能 | ★★☆ |
 | requirements.txt 動的生成 | ファイル管理不要 | ★☆☆ |
 
-### 5.3. uv sync --active（おすすめ）
+### 5.3. uv sync --active(おすすめ)
 
 `--active` オプションを使うと、Databricks の既存環境に直接インストールできます。
 
@@ -414,9 +391,9 @@ dev = [
 
 ポイント
 
-- `dependencies`: Databricks にインストールするパッケージ（DBR にないもの）
+- `dependencies`: Databricks にインストールするパッケージ(DBR にないもの)
 - `[project.optional-dependencies]`: DBR プリインストール済みパッケージ
-    - `uv sync` ではインストールされない（依存解決のみに使用）
+    - `uv sync` ではインストールされない(依存解決のみに使用)
     - DBR との互換性を確保するためにバージョンを固定
 - `dev`: ローカル開発ツール
 
@@ -489,20 +466,20 @@ flowchart TB
     E[Renovate] -.->|自動更新| 設定ファイル
 ```
 
-1. **mise**（ランタイム管理）
+1. **mise**(ランタイム管理)
     - ツールのバージョンを設定ファイルで一元管理
     - チーム全体で統一されたツールバージョン
 
-2. **pre-commit**（コミット時チェック）
+2. **pre-commit**(コミット時チェック)
     - ローカルでも GitHub Actions でも同じチェックを実行
     - Linter / Formatter の自動実行
     - セキュリティスキャン
 
-3. **Renovate**（依存関係の自動更新）
+3. **Renovate**(依存関係の自動更新)
     - mise.toml、pre-commit、GitHub Actions で使用するアクションを継続的に更新
     - セキュリティパッチの自動適用
 
-4. **ブランチ保護ルール**（最後の砦）
+4. **ブランチ保護ルール**(最後の砦)
     - 直接 push や force push を防止
 
 ### 6.3. mise.toml の例
@@ -560,7 +537,7 @@ repos:
 
 **gitleaks**
 
-コード内にハードコードされたシークレット（API キー、パスワード、トークンなど）を検出します。
+コード内にハードコードされたシークレット(API キー、パスワード、トークンなど)を検出します。
 
 防げる事故の例
 
@@ -645,7 +622,7 @@ jobs:
 │                         ▼                                   │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │          jupyter-databricks-kernel                   │  │
-│  │     （Databricks Compute でセル実行）                  │  │
+│  │     (Databricks Compute でセル実行)                  │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                         │                                   │
 │                         ▼                                   │
@@ -655,7 +632,7 @@ jobs:
 │                         │                                   │
 │                         ▼                                   │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │     pre-commit（Linter / Formatter / Security）      │  │
+│  │     pre-commit(Linter / Formatter / Security)      │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                         │                                   │
 │                         ▼                                   │
