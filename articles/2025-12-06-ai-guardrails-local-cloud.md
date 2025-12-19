@@ -502,3 +502,7 @@ Settings → Rules → Rulesets から設定できます。
 ## 9. まとめ
 
 設定ファイルの一元管理ができていることによって、ローカルで動くように書いた後に GitHub Actions で動くように調整するのが楽なガードレールの構成を紹介しました。参考になれば幸いです。
+
+## 10. 関連記事
+
+@[card](https://zenn.dev/genda_jp/articles/2025-12-19-databricks-notebook-ai-ready)

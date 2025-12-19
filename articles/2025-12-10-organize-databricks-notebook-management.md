@@ -356,8 +356,7 @@ from common.utils import greet  # 別階層からインポート可能
 
 ## 8. 関連記事
 
-ガードレール構成（mise + pre-commit + Renovate）については
-以下の記事で紹介しています。
+@[card](https://zenn.dev/genda_jp/articles/2025-12-19-databricks-notebook-ai-ready)
 
 @[card](https://zenn.dev/genda_jp/articles/2025-12-06-ai-guardrails-local-cloud)
 
