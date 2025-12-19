@@ -69,15 +69,30 @@ jupyter execute notebook.ipynb --kernel_name=databricks --inplace
 
 ### 3.2. 既存アプローチとの違い
 
-Databricks でのローカル開発には、公式の VS Code 拡張や Databricks Connect といったアプローチがあります。`jupyter-databricks-kernel` はこれらとは異なる特徴を持っています。
+Databricks でのローカル開発には、公式の VS Code 拡張や Databricks Connect といったアプローチがあります。
 
-| アプローチ                | 特徴                                                                       |
-| -----------               | ------                                                                     |
-| Databricks VS Code 拡張   | VS Code 限定                                                               |
-| Databricks Connect        | Spark セッションをローカルから接続、PySpark コード向け                     |
-| jupyter-databricks-kernel | 標準的な Jupyter カーネルとして動作、あらゆる Jupyter 対応ツールで利用可能 |
+**Databricks VS Code 拡張**
 
-標準的な Jupyter カーネルとして実装しているため特定のツールに依存せず利用できます。
+- セル単位の対話的実行が可能 (Databricks Connect 統合)
+- ノートブックを Lakeflow Jobs として実行可能
+- Python は対話的実行可能、`%r` `%scala` は非対応、`%sql` は部分的サポート
+- DBR 13.3 以上が必要
+- VS Code 限定のため他のエディタや AI ツールからは使えない
+
+**Databricks Connect**
+
+- PySpark コードをローカルで実行し、リモートクラスタで処理
+- pyspark の代替として動作するため同一環境に共存不可
+- RDD、SparkContext、JVM アクセスを使うライブラリは非対応
+- NumPy 2.0 以上は非対応
+- PySpark 開発向けで、非 Spark 処理には不向き
+
+**jupyter-databricks-kernel**
+
+- 標準的な Jupyter カーネルとして動作
+- VS Code、JupyterLab、コマンドライン (`jupyter execute`) など任意のツールから利用可能
+- Claude Code などの AI ツールからノートブックを直接実行可能
+- Spark 以外のコードも実行可能 (pandas、requests など)
 
 ### 3.3. メリット
 
@@ -95,37 +110,31 @@ Databricks でのローカル開発には、公式の VS Code 拡張や Databric
 
 ### 3.4. アーキテクチャ
 
-```text
-┌─────────────────────────────────────┐
-│         ローカル開発環境              │
-│  ┌─────────────┐  ┌──────────────┐  │
-│  │   VS Code   │  │ Claude Code  │  │
-│  │  + Jupyter  │  │              │  │
-│  └──────┬──────┘  └──────┬───────┘  │
-│         │                │          │
-│         ▼                ▼          │
-│  ┌──────────────────────────────┐   │
-│  │  jupyter-databricks-kernel  │   │
-│  └──────────────┬───────────────┘   │
-└─────────────────┼───────────────────┘
-                  │ Databricks SDK
-                  ▼
-┌─────────────────────────────────────┐
-│        Databricks Workspace         │
-│  ┌──────────────────────────────┐   │
-│  │     Databricks Compute       │   │
-│  │   (Cluster / SQL Warehouse)  │   │
-│  └──────────────────────────────┘   │
-└─────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph Local["ローカル開発環境"]
+        subgraph Client["クライアント"]
+            A["VS Code + Jupyter"]
+            B["Claude Code"]
+        end
+        A --> C["jupyter-databricks-kernel"]
+        B --> C
+    end
+
+    C -->|Databricks SDK| D
+
+    subgraph Databricks["Databricks Workspace"]
+        D["Databricks Compute"]
+    end
 ```
 
 ## 4. 改善策2: Skinny Notebook Wrapper + Pure Python
 
 ### 4.1. 基本的な考え方
 
-ノートブックは便利ですが、ロジックをすべてノートブックに書くと管理が難しくなります。そこで推奨するのが「Skinny Notebook Wrapper」パターンです。
+ノートブックは便利ですが、ロジックをすべてノートブックに書くと管理が難しくなります。そこで推奨するのが "Skinny Notebook Wrapper" (すみません。私の造語です。) パターンです。
 
-これは Web 開発における「Skinny Controller, Fat Model」(コントローラーは処理を振り分けるだけで、ビジネスロジックはモデル層に書く設計)と同じ考え方です。
+Web 開発における "Skinny Controller, Fat Model" (コントローラーは処理を振り分けるだけで、ビジネスロジックはモデル層に書く設計) と同じ考え方です。
 
 - ノートブックは「薄いラッパー」として使い続ける
 - メインロジックは `.py` ファイルに切り出す
@@ -135,12 +144,12 @@ Databricks でのローカル開発には、公式の VS Code 拡張や Databric
 
 ロジックを `.py` に切り出しても、ノートブックは以下の理由で便利です。
 
-| 役割 | ノートブック | .py ファイル |
-|------|-------------|-------------|
-| マジックコマンド (%pip install 等) | ○ | × |
-| dbutils.widgets によるパラメータ定義 | ○ | × |
-| テストの書きやすさ | × | ○ |
-| AI ツールとの親和性 | △ | ○ |
+| 役割                                 | ノートブック  | .py ファイル  |
+| ------                               | ------------- | ------------- |
+| マジックコマンド (%pip install 等)   | ○            | ×            |
+| dbutils.widgets によるパラメータ定義 | ○            | ×            |
+| テストの書きやすさ                   | ×            | ○            |
+| AI ツールとの親和性                  | △            | ○            |
 
 つまり、ノートブックは「Job のエントリーポイント」として残しつつ、ロジックは `.py` に書くのがベストです。
 
@@ -151,10 +160,12 @@ project/
 ├── launcher.py       # 薄いラッパー(Source形式ノートブック)
 ├── main.py           # メインロジック(通常の Python ファイル)
 ├── test_main.py      # テストコード
-└── pyproject.toml    # Ruff 設定等
+└── pyproject.toml    # uv, Ruff 設定等
 ```
 
-### 4.4. launcher(ノートブック)の例
+ここまで整理するとかなりすっきりしてしまいますが、雑に .py に切り出して雑に呼び出すと考えるだけでもOKです。
+
+### 4.4. launcher (ノートブック) の例
 
 **Cell 1: Widget 定義**
 
@@ -180,9 +191,9 @@ main(
 
 ポイント
 
-- `dbutils` は Databricks が事前定義(再生成不要)
 - ノートブックは「起動装置」に徹する
-- パラメータは Widget 経由で受け取り、ロジックに渡す
+- `dbutils` は Databricks Compute では事前定義されているので Notebook 内で使い切っておく
+    - .py ファイルに `dbutils` を書かないことで未定義エラーを効かせることができる
 
 ### 4.5. main.py にロジックを集約
 
@@ -262,7 +273,7 @@ pytest test_main.py
 
 ### 5.1. uv とは
 
-uv は Rust 製の高速な Python パッケージマネージャです。2024 年に登場した比較的新しいツールで、Databricks 環境での活用事例はまだ多くありません。
+uv は Rust 製の高速な Python パッケージマネージャです。
 
 @[card](https://docs.astral.sh/uv/)
 
@@ -272,17 +283,7 @@ uv は Rust 製の高速な Python パッケージマネージャです。2024 �
 - `uv.lock` による再現可能な依存関係管理
 - Python バージョン管理も可能
 
-### 5.2. Databricks でのパッケージ管理方法
-
-3つの方法を紹介します。
-
-| 方法 | 概要 | おすすめ度 |
-|------|------|-----------|
-| uv sync --active | ローカルと同じワークフロー | ★★★ |
-| requirements.txt 事前生成 | PR で差分確認可能 | ★★☆ |
-| requirements.txt 動的生成 | ファイル管理不要 | ★☆☆ |
-
-### 5.3. uv sync --active(おすすめ)
+### 5.2. uv sync --active
 
 `--active` オプションを使うと、Databricks の既存環境に直接インストールできます。
 
@@ -300,58 +301,12 @@ result = subprocess.run(
 )
 ```
 
-`--active` オプションは、新しい `.venv` を作成せず、現在アクティブな仮想環境を使用します。Databricks ノートブック環境では、既に `/local_disk0/` 上に仮想環境がアクティブになっているため、`/Workspace` 上に `.venv` を作成する際の問題を回避できます。
+`--active` オプションは、新しい `.venv` を作成せず、現在アクティブな仮想環境を使用します。
+Databricks ノートブック環境では既に仮想環境がアクティブになっているためこのオプションを使うというわけです。
 
-メリット
+### 5.3. pyproject.toml の構成例
 
-- ローカル開発と同じワークフロー
-- `uv.lock` から直接インストールするため整合性が保証される
-
-デメリット
-
-- 毎回 uv のダウンロードが発生する
-
-### 5.4. requirements.txt 事前生成
-
-`uv.lock` から `requirements.txt` を生成し、リポジトリにコミットしておきます。
-
-```bash
-uv export --no-hashes --no-dev > requirements.txt
-```
-
-Databricks では事前生成した requirements.txt を使います。
-
-```python
-%pip install -r requirements.txt
-```
-
-pre-commit で自動化すると、生成忘れや手動編集による整合性エラーを防げます。
-
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: local
-    hooks:
-      - id: uv-export
-        name: uv export
-        entry: uv export --no-hashes --no-dev -o requirements.txt
-        language: system
-        files: ^(pyproject\.toml|uv\.lock)$
-        pass_filenames: false
-```
-
-メリット
-
-- PR で依存関係の変更が見やすい
-- uv のインストールが不要
-
-デメリット
-
-- requirements.txt の生成忘れリスク
-
-### 5.5. pyproject.toml の構成例
-
-```toml
+```toml:pyproject.toml
 [project]
 name = "databricks-project"
 version = "0.1.0"
@@ -391,17 +346,19 @@ dev = [
 
 ポイント
 
-- `dependencies`: Databricks にインストールするパッケージ(DBR にないもの)
+- `dependencies`: Databricks にインストールするパッケージ (Datarbricks Runtime にないもの)
 - `[project.optional-dependencies]`: DBR プリインストール済みパッケージ
-    - `uv sync` ではインストールされない(依存解決のみに使用)
+    - `uv sync` ではインストールされない (依存解決のみに使用)
     - DBR との互換性を確保するためにバージョンを固定
+    - ここはおそらく Databricks 側から requirements.txt が提供されていないのでリリースノートから情報を取得する必要があります
 - `dev`: ローカル開発ツール
 
-### 5.6. Renovate で DBR パッケージを更新対象から除外
+### 5.4. Renovate で DBR パッケージを更新対象から除外
 
+後述する Renovate との相性を考慮しておきます。
 DBR プリインストールパッケージは DBR のバージョンに合わせて固定する必要があるため、Renovate の自動更新から除外します。
 
-```json
+```json:renovate.json
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
@@ -414,18 +371,16 @@ DBR プリインストールパッケージは DBR のバージョンに合わ�
 }
 ```
 
-`matchDepTypes` で `optional-dependencies` を指定することで、`[project.optional-dependencies]` に定義したパッケージが Renovate の更新対象から除外されます。これにより、DBR のバージョンアップに合わせて手動で更新するワークフローが実現できます。
+`matchDepTypes` で `optional-dependencies` を指定することで、`[project.optional-dependencies]` に定義したパッケージが Renovate の更新対象から除外されます。
+これにより、DBR のバージョンアップに合わせて手動で更新するワークフローが実現できます。
 
-### 5.7. メリット
+### 5.5. メリット
 
 1. 高速なパッケージインストール
-    - `pip` の 10〜100 倍高速
-    - CI/CD の実行時間短縮
-
+    - `pip` の 10-100 倍高速
 2. 厳密なバージョン管理
     - `uv.lock` による完全なバージョン固定
     - 再現性の確保
-
 3. ローカルと Databricks での統一
     - 同じ `pyproject.toml` / `uv.lock` をローカルと Databricks で使用
     - 環境差異によるバグを防止
@@ -436,7 +391,7 @@ DBR プリインストールパッケージは DBR のバージョンに合わ�
 
 AI ツールを活用する上で重要なのが「ガードレール」です。AI が生成したコードにも、人間が書いたコードと同じ品質チェックを適用することで、コード品質とセキュリティを担保します。
 
-クラウド IDE からコミットしたり AI コーディングエージェントが直接 PR を作成するケースが増えています。編集環境が多様化した今、ガードレールの重要性が増しています。
+クラウド IDE からコミットしたり AI コーディングエージェントが直接 PR を作成するケースが増えているので対応が必要です。
 
 ### 6.2. 推奨ツールスタック
 
@@ -612,38 +567,22 @@ jobs:
 
 これらを組み合わせることで、以下のような開発フローが実現できます。
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│                    開発者のローカル環境                       │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │  VS Code + Jupyter + GitHub Copilot / Claude Code   │  │
-│  └──────────────────────┬───────────────────────────────┘  │
-│                         │                                   │
-│                         ▼                                   │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │          jupyter-databricks-kernel                   │  │
-│  │     (Databricks Compute でセル実行)                  │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                         │                                   │
-│                         ▼                                   │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │   Skinny Notebook + Pure Python + uv 依存関係管理     │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                         │                                   │
-│                         ▼                                   │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │     pre-commit(Linter / Formatter / Security)      │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                         │                                   │
-│                         ▼                                   │
-│                    git commit                               │
-└─────────────────────────┼───────────────────────────────────┘
-                          │
-                          ▼
-               ┌──────────────────┐
-               │  GitHub Actions  │
-               │  + Renovate      │
-               └──────────────────┘
+```mermaid
+graph TB
+    subgraph Local["開発者のローカル環境"]
+        A["VS Code + Jupyter + GitHub Copilot / Claude Code"]
+        B["jupyter-databricks-kernel"]
+        C["Skinny Notebook + Pure Python + uv"]
+        D["pre-commit"]
+        E["git commit"]
+
+        A --> B
+        B --> C
+        C --> D
+        D --> E
+    end
+
+    E --> F["GitHub Actions + Renovate"]
 ```
 
 AI ツールは強力ですが、それを最大限活用するためには開発環境の整備が欠かせません。本記事で紹介した改善策を参考に、皆さんの Databricks 開発環境も「AI-Ready」にしていただければ幸いです。
