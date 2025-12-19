@@ -69,46 +69,38 @@ jupyter execute notebook.ipynb --kernel_name=databricks --inplace
 
 ### 3.2. 既存アプローチとの違い
 
-Databricks でのローカル開発には、公式の VS Code 拡張や Databricks Connect といったアプローチがあります。
+Databricks でのローカル開発には、公式の VS Code 拡張 (Databricks Connect Integration) というアプローチがあります。
 
-**Databricks VS Code 拡張**
+[公式ドキュメント](https://docs.databricks.com/aws/en/dev-tools/vscode-ext/notebooks) によると、VS Code 拡張のノートブック実行は Databricks Connect を使用しており、以下のように動作します。
 
-- セル単位の対話的実行が可能 (Databricks Connect 統合)
-- ノートブックを Lakeflow Jobs として実行可能
-- Python は対話的実行可能、`%r` `%scala` は非対応、`%sql` は部分的サポート
-- DBR 13.3 以上が必要
-- VS Code 限定のため他のエディタや AI ツールからは使えない
+> All code runs locally, while all code involving DataFrame operations runs on the cluster in the remote Databricks workspace and run responses are sent back to the local caller.
 
-**Databricks Connect**
+つまり、通常の Python コードはローカルで実行され、DataFrame 操作のみがリモートクラスタで実行されます。
 
-- PySpark コードをローカルで実行し、リモートクラスタで処理
-- pyspark の代替として動作するため同一環境に共存不可
-- RDD、SparkContext、JVM アクセスを使うライブラリは非対応
-- NumPy 2.0 以上は非対応
-- PySpark 開発向けで、非 Spark 処理には不向き
+| 観点                 | VS Code 拡張 (Databricks Connect)    | jupyter-databricks-kernel   |
+| -------------------- | ---------------------------------    | --------------------------- |
+| 実行場所             | ローカル + リモート (DataFrame のみ) | Databricks 上               |
+| 実行結果の取得       | ○                                   | ○                          |
+| AI ツールからの実行  | ×                                   | ○                          |
+| DBR プリインストール | ローカルにも要インストール           | そのまま利用可能            |
 
-**jupyter-databricks-kernel**
-
-- 標準的な Jupyter カーネルとして動作
-- VS Code、JupyterLab、コマンドライン (`jupyter execute`) など任意のツールから利用可能
-- Claude Code などの AI ツールからノートブックを直接実行可能
-- Spark 以外のコードも実行可能 (pandas、requests など)
+`jupyter-databricks-kernel` はすべてのコードを Databricks 上で実行するため、Databricks Runtime にプリインストールされたライブラリをそのまま利用でき、任意のエディタや AI ツールから実行結果を取得できます。
 
 ### 3.3. メリット
 
-1. ローカル開発環境の統一
+- 既存のローカル開発環境のフル活用
     - VS Code + Jupyter 拡張で快適な開発体験
     - 使い慣れたエディタの機能をフル活用
+- AI ツールとの連携が容易
+    - `jupyter execute` コマンドでノートブックを実行し、結果を取得できる
+    - AI が実行結果を見て次のアクションを判断できるため、自律的な試行錯誤が可能
+    - ローカル環境から独立しているため、大規模 DataFrame の処理などクラスタのリソースを気兼ねなく利用できる
 
-2. AI ツールとの連携
-    - GitHub Copilot がノートブックセル内でも動作
-    - Claude Code からノートブックを直接実行可能
+### 3.4. デメリット
 
-3. CI/CD との統合
-    - `jupyter execute` コマンドでノートブックをヘッドレス実行
-    - GitHub Actions などでの自動テストが容易に
+- 利用している API の制約上 Serverless Compute には対応していない
 
-### 3.4. アーキテクチャ
+### 3.5. アーキテクチャ
 
 ```mermaid
 graph TB
