@@ -8,13 +8,13 @@ published: true
 ---
 
 株式会社GENDA データエンジニア / MLOps エンジニアの uma-chan です。
-この記事は GENDA Advent Calendar 2025 シリーズ4 Day 19 の記事です。
-
-@[card](https://qiita.com/advent-calendar/2025/genda)
-
-ならびに Databricks Advent Calendar 2025 シリーズ1 Day 19 の記事です。
+この記事は Databricks Advent Calendar 2025 シリーズ1 Day 19 の記事です。
 
 @[card](https://qiita.com/advent-calendar/2025/databricks)
+
+ならびに GENDA Advent Calendar 2025 シリーズ4 Day 19 の記事です。
+
+@[card](https://qiita.com/advent-calendar/2025/genda)
 
 本記事は 2025-12-12 に開催された Databricks 招待イベント Data+AI World Tour Tokyo After Party での登壇内容を再構成したものです。
 
