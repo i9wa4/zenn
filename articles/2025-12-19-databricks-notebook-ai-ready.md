@@ -24,7 +24,7 @@ published: true
 
 Databricks Notebook は手軽にデータ分析や機械学習のプロトタイピングができる便利なツールですが、開発体験にはいくつかの課題があります。
 
-さらに、 Claude Code や Cursor などの AI コーディングアシスタントが普及した現在、これらのツールを活用しやすい状態を目指すことが重要となっています。
+さらに Claude Code や Cursor などの AI コーディングアシスタントが普及した現在、これらのツールを活用しやすい状態を目指すことが重要となっています。
 
 以下で Databricks Notebook 開発を AI-Ready にするための4つの改善策を紹介します。
 
@@ -132,7 +132,7 @@ graph TB
 
 ### 4.1. 基本的な考え方
 
-ノートブックは便利ですが、ロジックをすべてノートブックに書くと管理が難しくなります。そこで推奨するのが "Skinny Notebook Wrapper + Pure Python" (すみません。いずれも私の造語です。) パターンです。
+ノートブックは便利ですが、ロジックをすべてノートブックに書くと管理が難しくなります。そこで推奨するのが "Skinny Notebook Wrapper + Pure Python" (いずれも造語) パターンです。
 
 Web 開発における "Skinny Controller, Fat Model" (コントローラーは処理を振り分けるだけで、ビジネスロジックはモデル層に書く設計) と同じ考え方です。
 
@@ -163,7 +163,7 @@ project/
 └── pyproject.toml    # uv, Ruff 設定等
 ```
 
-ここまで整理するとかなりすっきりしてしまいますが、雑に .py に切り出して雑に呼び出すと考えるだけでもOKです。
+ここまで整理すると非常にすっきりしますが、雑に .py に切り出して雑に呼び出すだけでも大きく効果を得られます。
 
 ### 4.4. launcher (ノートブック) の例
 
@@ -302,7 +302,7 @@ result = subprocess.run(
 ```
 
 `--active` オプションは、新しい `.venv` を作成せず、現在アクティブな仮想環境を使用します。
-Databricks ノートブック環境では既に仮想環境がアクティブになっているためこのオプションを使うというわけです。
+Databricks ノートブック環境では既に仮想環境がアクティブになっているのでこのオプションを使うというわけです。
 
 ### 5.3. pyproject.toml の構成例
 
@@ -346,11 +346,11 @@ dev = [
 
 ポイント
 
-- `dependencies`: Databricks にインストールするパッケージ (Datarbricks Runtime にないもの)
+- `dependencies`: Databricks にインストールするパッケージ (Databricks Runtime にないもの)
 - `[project.optional-dependencies]`: Databricks Runtime プリインストール済みパッケージ
     - `uv sync` ではインストールされない (依存解決のみに使用)
     - Databricks Runtime との互換性を確保するためにバージョンを固定
-    - ここはおそらく Databricks 側から requirements.txt が提供されていないのでリリースノートから情報を取得する必要があります
+    - Databricks 側から requirements.txt が提供されてなさそうなのでリースノートから情報を取得しました
 - `dev`: ローカル開発ツール
 
 ### 5.4. Renovate で Databricks Runtime パッケージを更新対象から除外
@@ -438,8 +438,8 @@ flowchart TB
 uv = "0.9.15"
 pre-commit = "4.5.0"
 shellcheck = "0.11.0"
-aqua:rhysd/actionlint" = "1.7.9"
-aqua:gitleaks/gitleaks" = "8.30.0"
+"aqua:rhysd/actionlint" = "1.7.9"
+"aqua:gitleaks/gitleaks" = "8.30.0"
 ```
 
 mise で uv 自体のバージョンを管理し、uv で Python のバージョンとライブラリを管理する組み合わせがおすすめです。
