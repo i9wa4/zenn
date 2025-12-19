@@ -146,50 +146,88 @@ print(result.stdout)
 
 ## 4. pyproject.toml の構成
 
-```toml
+```toml:pyproject.toml
 [project]
 name = "databricks-project"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    # Databricks にインストールするパッケージ
+    # Project-specific (not included in DBR)
+    "httpx",
+]
+
+[project.optional-dependencies]
+dbr-17-3 = [
+    # DBR 17.3 LTS preinstalled packages
+    # https://docs.databricks.com/aws/en/release-notes/runtime/17.3lts
+    #
+    # Purpose:
+    # - Used for dependency resolution in uv.lock (not installed by uv sync)
+    # - Ensures compatibility with Databricks Runtime environment
+    # - Excluded from Renovate updates via matchDepTypes in renovate.json
+    "matplotlib==3.10.0",
+    "mlflow-skinny==3.0.1",
+    "numpy==2.1.3",
+    "pandas==2.2.3",
+    "pyarrow==19.0.1",
+    "pyspark==4.0.0",
+    "scikit-learn==1.6.1",
+    "scipy==1.15.1",
 ]
 
 [dependency-groups]
 dev = [
+    "jupyter-databricks-kernel",
+    "jupyterlab",
     "pytest",
     "ruff",
-]
-dbr = [
-    # DBR 17.3 LTS プリインストール済み
-    # https://docs.databricks.com/aws/en/release-notes/runtime/17.3lts
-    "pandas==2.2.3",
-    "numpy==2.1.3",
-    "pyspark==4.0.0",
 ]
 ```
 
 ポイント
 
-- `dependencies`: Databricks にインストールするパッケージ
+- `dependencies`: Databricks にインストールするパッケージ (Databricks Runtime にないもの)
+- `[project.optional-dependencies]`: Databricks Runtime プリインストール済みパッケージ
+    - `uv sync` ではインストールされない (依存解決のみに使用)
+    - Databricks Runtime との互換性を確保するためにバージョンを固定
+    - Databricks 側から requirements.txt が提供されてなさそうなのでリリースノートから情報を取得しました
 - `dev`: ローカル開発ツール
-- `dbr`: Databricks Runtime (DBR) プリインストール済みパッケージ
-    - バージョン整合性を保つために記載
-    - `uv export --no-dev` でも含まれない (デフォルトで除外)
 
-## 5. まとめ
+## 5. Renovate で Databricks Runtime パッケージを更新対象から除外
+
+Databricks Runtime プリインストールパッケージは Databricks Runtime のバージョンに合わせて固定する必要があるため、Renovate の自動更新から除外します。
+
+```json:renovate.json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "matchDepTypes": ["optional-dependencies"],
+      "enabled": false
+    }
+  ]
+}
+```
+
+`matchDepTypes` で `optional-dependencies` を指定することで、`[project.optional-dependencies]` に定義したパッケージが Renovate の更新対象から除外されます。
+これにより、Databricks Runtime のバージョンアップに合わせて手動で更新するワークフローが実現できます。
+
+## 6. まとめ
 
 uv を使うことでパッケージ依存関係を効率的に管理できます。
 
 まだ uv を使ったことがない場合はぜひ試してみてください。
 
-## 6. 関連記事
+## 7. 関連記事
+
+@[card](https://zenn.dev/genda_jp/articles/2025-12-19-databricks-notebook-ai-ready)
 
 @[card](https://zenn.dev/genda_jp/articles/2025-12-10-organize-databricks-notebook-management)
 
 @[card](https://zenn.dev/genda_jp/articles/2025-12-06-ai-guardrails-local-cloud)
 
-## 7. 参考
+## 8. 参考
 
 - <https://docs.astral.sh/uv/>
 - <https://docs.astral.sh/uv/reference/cli/#uv-export>
