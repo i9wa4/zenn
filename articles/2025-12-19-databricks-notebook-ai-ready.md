@@ -350,7 +350,7 @@ dev = [
 - `[project.optional-dependencies]`: Databricks Runtime プリインストール済みパッケージ
     - `uv sync` ではインストールされない (依存解決のみに使用)
     - Databricks Runtime との互換性を確保するためにバージョンを固定
-    - Databricks 側から requirements.txt が提供されてなさそうなのでリースノートから情報を取得しました
+    - Databricks 側から requirements.txt が提供されてなさそうなのでリリースノートから情報を取得しました
 - `dev`: ローカル開発ツール
 
 ### 5.4. Renovate で Databricks Runtime パッケージを更新対象から除外
@@ -535,7 +535,60 @@ jobs:
 
 実際の運用では pinact 等を使って SHA 固定することを推奨します。
 
-### 6.7. メリット
+### 6.7. CI でのテスト実行
+
+pre-commit による lint に加えて、テストもガードレールとして追加できます。
+別ジョブとして定義し、集約ジョブでまとめてブランチ保護ルールで必須にします。
+
+```yaml
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install mise
+        uses: jdx/mise-action@v2
+        with:
+          install_args: --yes
+          cache: true
+
+      - name: Run tests
+        run: mise exec -- uv run pytest
+
+  # 集約ジョブ: ブランチ保護ルールではこのジョブを必須に設定
+  # matrix でジョブが増減しても設定変更が不要になる
+  ci:
+    needs: [pre-commit, test]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check results
+        run: |
+          if [[ "${{ contains(needs.*.result, 'failure') }}" == "true" ]]; then
+            echo "One or more jobs failed"
+            exit 1
+          fi
+          if [[ "${{ contains(needs.*.result, 'cancelled') }}" == "true" ]]; then
+            echo "One or more jobs were cancelled"
+            exit 1
+          fi
+          echo "All checks passed"
+```
+
+ポイント
+
+- pre-commit には lint/format を入れておく
+- CI でテストを実行し、PR マージ前に品質を担保
+- 集約ジョブ (ci) をブランチ保護ルールで必須にすると、lint とテスト両方の成功が必須になる
+- 改善策2 (Skinny Notebook Wrapper + Pure Python) でロジックを `.py` に切り出しておけばテストが書きやすい
+
+### 6.8. メリット
 
 1. AI 生成コードの品質担保
     - コミット前に自動チェック
