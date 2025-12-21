@@ -23,7 +23,9 @@ published: true
 
 本記事は 2025-12-12 に開催された Databricks 招待イベント Data+AI World Tour Tokyo After Party での登壇内容を再構成したものです。
 
+<!-- rumdl-disable MD057 -->
 @[speakerdeck](58be33da57d84a5eb9914aa8a8c903ec)
+<!-- rumdl-enable MD057 -->
 
 ## 1. はじめに
 
@@ -164,7 +166,9 @@ project/
 
 ### 4.4. launcher (ノートブック) の例
 
+<!-- rumdl-disable MD036 -->
 **Cell 1: Widget 定義**
+<!-- rumdl-enable MD036 -->
 
 `dbutils.widgets.text()` でパラメータとデフォルト値を定義します。
 
@@ -173,7 +177,9 @@ dbutils.widgets.text("table_name", "samples.nyctaxi.trips", "Table Name")
 dbutils.widgets.text("limit", "10", "Limit")
 ```
 
+<!-- rumdl-disable MD036 -->
 **Cell 2: main() 実行**
+<!-- rumdl-enable MD036 -->
 
 Widget で定義したパラメータを取得し、ロジック(`main.py`)に渡します。
 
@@ -480,7 +486,9 @@ repos:
 
 ### 6.5. 主なチェックツールの例
 
+<!-- rumdl-disable MD036 -->
 **gitleaks**
+<!-- rumdl-enable MD036 -->
 
 コード内にハードコードされたシークレット(API キー、パスワード、トークンなど)を検出します。
 
@@ -489,11 +497,15 @@ repos:
 - AI がサンプルコードを生成したとき、API キーっぽい文字列が含まれていた
 - 環境変数をコピペしたとき、うっかり本番の認証情報が混入
 
+<!-- rumdl-disable MD036 -->
 **ruff**
+<!-- rumdl-enable MD036 -->
 
 Python コードの lint と format を高速に実行します。
 
+<!-- rumdl-disable MD036 -->
 **actionlint / zizmor / pinact**
+<!-- rumdl-enable MD036 -->
 
 GitHub Actions ワークフローのリスク軽減に役立ちます。
 入れれば入れるほど安心だと思います。

@@ -182,7 +182,7 @@ run '~/.tmux/plugins/tpm/tpm'
 このようにステータスライン右側にブランチ名とリポジトリのステータスが表示されるようになります。
 最近ステータスラインは上側派になりました。
 
-![](/images/2025-05-04-tmux-zsh-git-status/tmux.png)
+![Tmux image](/images/2025-05-04-tmux-zsh-git-status/tmux.png)
 
 ## 5. Zsh プロンプトにリポジトリのステータスを表示する
 
@@ -257,7 +257,7 @@ PROMPT="${PROMPT}%F{#696969}%D{[%Y-%m-%d %H:%M:%S]} ${_shell_type} %f%K{#198CAA}
 以下のように tmux のステータスラインと同じ内容を表示できます。
 色はカラーコードで指定できるので好きなように設定しましょう！
 
-![](/images/2025-05-04-tmux-zsh-git-status/tmux-zsh.png)
+![Tmux Zsh image](/images/2025-05-04-tmux-zsh-git-status/tmux-zsh.png)
 
 ## 6. おまけ
 

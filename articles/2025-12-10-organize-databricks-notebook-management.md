@@ -127,7 +127,9 @@ project/
 Databricks Repos / Git Folders を使う場合の例です。
 （Workspace Files の場合は `sys.path` 設定が必要。詳細はセクション6参照）
 
+<!-- rumdl-disable MD036 -->
 **Cell 1: Widget 定義**
+<!-- rumdl-enable MD036 -->
 
 `dbutils.widgets.text()` でパラメータとデフォルト値を定義します。
 Job 実行時はデフォルト値が使われます。
@@ -137,7 +139,9 @@ dbutils.widgets.text("table_name", "samples.nyctaxi.trips", "Table Name")
 dbutils.widgets.text("limit", "10", "Limit")
 ```
 
+<!-- rumdl-disable MD036 -->
 **Cell 2: main() 実行**
+<!-- rumdl-enable MD036 -->
 
 Widget で定義したパラメータを取得し、ロジック（`main.py`）に渡します。
 Widget は常に文字列を返すため、数値が必要な場合は `int()` で変換します。

@@ -42,7 +42,9 @@ Vim と tmux を活用して複数の AI エージェント (Claude Code、Codex
 話が分かりやすいように操作の様子を先に共有します。
 以下は Vim から複数の AI エージェントに同じプロンプトを送信している様子です (4ペイン構成)。
 
+<!-- rumdl-disable MD057 -->
 @[youtube](AyE-ruGOGCc)
+<!-- rumdl-enable MD057 -->
 
 ## 4. 構成
 

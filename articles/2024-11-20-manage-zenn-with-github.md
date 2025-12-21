@@ -18,9 +18,9 @@ published_at: 2024-11-20 18:00
 ### 2.1. 前準備
 
 1. リポジトリ作成から連携までを済ませる。
-    - [GitHubリポジトリでZennのコンテンツを管理する](https://zenn.dev/zenn/articles/connect-to-github)
+   - [GitHubリポジトリでZennのコンテンツを管理する](https://zenn.dev/zenn/articles/connect-to-github)
 1. Zenn CLI をインストールする。
-    - [Zenn CLIをインストールする](https://zenn.dev/zenn/articles/install-zenn-cli)
+   - [Zenn CLIをインストールする](https://zenn.dev/zenn/articles/install-zenn-cli)
 1. リポジトリ内に作成されたファイルをコミットしておく。
 
 ### 2.2. 記事の作成
@@ -34,7 +34,7 @@ published_at: 2024-11-20 18:00
 ### 3.1. スラッグを最初に指定する
 
 ```sh
-$ npx zenn new:article
+npx zenn new:article
 ```
 
 で記事に対応する Markdown ファイルを作成するとスラッグ (記事IDのことで公開時のファイル名と思ってよい) としてランダムな文字列が割り当てられます。
@@ -43,7 +43,7 @@ $ npx zenn new:article
 - スラッグを指定して記事作成コマンドを実行する
 
     ```sh
-    $ npx zenn new:article --slug 2024-11-20-manage-zenn-with-github
+    npx zenn new:article --slug 2024-11-20-manage-zenn-with-github
     ```
 
 - **公開前に** ファイル名を変更する
@@ -111,7 +111,6 @@ published: false
 publication_name: "Publication Name"
 ---
 ```
-
 
 ## 4. おわりに
 

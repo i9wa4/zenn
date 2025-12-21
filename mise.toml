@@ -12,3 +12,6 @@ pre-commit = "4.5.1"
 "aqua:suzuki-shunsuke/ghatm" = "1.0.0"
 "aqua:suzuki-shunsuke/pinact" = "3.6.0"
 "aqua:zizmorcore/zizmor" = "1.19.0"
+
+# Cargo Tools
+"cargo:rumdl"   = "latest"

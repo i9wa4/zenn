@@ -142,7 +142,9 @@ AWS のサービスのみを使用した、よくあるできるだけ複雑な�
 ```
 
 ![aws-architecture-diagram](/images/2025-12-15-drawio-skills-claude-code/aws-data-pipeline.drawio.png)
+<!-- rumdl-disable MD036 -->
 *とんでもないことになった……*
+<!-- rumdl-enable MD036 -->
 
 ## 5. おわりに
 

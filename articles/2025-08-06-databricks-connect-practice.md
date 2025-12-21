@@ -506,7 +506,6 @@ uv add 'databricks-connect~=14.3.0'  # この場合は DBR 14.3 に対応
 
 設定ファイルが存在せずマウントされていない場合が考えられるので、devcontainer.json の `mounts` 設定を確認してください。
 
-
 ## 10. おわりに
 
 これでローカル開発環境から Databricks の Spark クラスタを利用できるようになりました。

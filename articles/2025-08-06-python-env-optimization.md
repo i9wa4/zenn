@@ -311,16 +311,17 @@ fi
 2. `uv.lock` を更新します。
 
     ```sh
-    $ uv lock --upgrade
+    uv lock --upgrade
     ```
 
 3. .venv を更新します。
 
     ```sh
-    $ uv sync --frozen --group dev
+    uv sync --frozen --group dev
     ```
 
 ### 6.1. パッケージ追加手順
+
 ```sh
 # 新しいパッケージを追加
 uv add pandas matplotlib

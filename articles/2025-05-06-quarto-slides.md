@@ -76,7 +76,7 @@ Quarto では .qmd という拡張子のファイルを使用します。VS Code
 
 空のリポジトリを作ったあと以下の構成を作っていきます。
 
-```
+```text
 ./
 ├── _quarto.yml
 ├── .github/
@@ -249,6 +249,8 @@ h3 レベル `###` が区切りになっているのは `_quarto.yml` の以下�
 
 スライドを左右に分割することも多いと思いますが、以下のファイルの記述を真似ることで簡単に作成できます。
 
+<!-- rumdl-disable MD048 -->
+
 ~~~md:slides/2025-05-05-initial-slide.qmd
 ---
 title: スライドタイトル スライドタイトル スライドタイトル
@@ -333,6 +335,8 @@ print("Hello, world!")
 ::::
 ~~~
 
+<!-- rumdl-enable MD048 -->
+
 ## 7. 手元でプレビューする
 
 リポジトリルートで以下のコマンドを実行することで手元でプレビューできます。
@@ -373,11 +377,11 @@ reveal.js 形式の HTML ファイルとなります。
 
 HTML ファイルを Web ブラウザで開くと以下のような表示になります。左下のハンバーガーメニューをクリックします。
 
-![](/images/2025-05-06-quarto-slides/01-quarto.png)
+![01 Quarto image](/images/2025-05-06-quarto-slides/01-quarto.png)
 
 複数のモードが選択できます。PDF Export Mode を選択すると PDF 印刷できる状態になります。
 
-![](/images/2025-05-06-quarto-slides/02-quarto.png)
+![02 Quarto image](/images/2025-05-06-quarto-slides/02-quarto.png)
 
 その他詳細は下記ページを参照してください。
 
