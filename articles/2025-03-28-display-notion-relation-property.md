@@ -21,7 +21,7 @@ publication_name: "genda_jp"
 
 一応以下が公式ドキュメントです。
 
-https://www.notion.com/ja/help/relations-and-rollups#リレーションの表示オプション
+@[card](https://www.notion.com/ja/help/relations-and-rollups#リレーションの表示オプション)
 
 ## 2. リレーションプロパティの表示設定
 

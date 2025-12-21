@@ -35,7 +35,7 @@ uv によるパッケージ管理と pre-commit による品質管理で、チ�
 
 今回利用している Python 環境管理ツールです。
 
-https://github.com/astral-sh/uv
+@[card](https://github.com/astral-sh/uv)
 
 最低限理解しておくべき要点は以下です。
 

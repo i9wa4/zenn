@@ -45,11 +45,11 @@ Claude Code で並行作業を行いやすくなるための工夫ポイント�
 
 macOS では Windows でいう「Win+数字」に相当する一手で表示アプリを切り替えるショートカットが無いので AeroSpace を利用しています。
 
-https://github.com/nikitabobko/AeroSpace
+@[card](https://github.com/nikitabobko/AeroSpace)
 
 導入時に以下の記事がとても参考になりました。
 
-https://zenn.dev/mozumasu/articles/mozumasu-window-costomization
+@[card](https://zenn.dev/mozumasu/articles/mozumasu-window-costomization)
 
 ### 3.4. ブラウザ
 
@@ -63,11 +63,11 @@ dotfiles にまだ入門できていない方は入門記事を参考にして�
 
 今回述べている内容はほとんど以下の dotfiles に記述したものとなります。
 
-https://github.com/i9wa4/dotfiles
+@[card](https://github.com/i9wa4/dotfiles)
 
 私の設定で気になる内容がある場合は以下の DeepWiki で質問してみると的確な回答が得られます。
 
-https://deepwiki.com/i9wa4/dotfiles
+@[card](https://deepwiki.com/i9wa4/dotfiles)
 
 ## 4. シェル
 
@@ -79,13 +79,13 @@ Zsh を愛用してます。
 
 Zsh のプラグインマネージャーです。
 
-https://github.com/zdharma-continuum/zinit
+@[card](https://github.com/zdharma-continuum/zinit)
 
 ### 4.2. zeno.zsh (Zsh/Fish)
 
 Zsh の操作体験を全般的に向上させるプラグインの zeno.zsh です。
 
-https://github.com/yuki-yano/zeno.zsh
+@[card](https://github.com/yuki-yano/zeno.zsh)
 
 正直これが無いとターミナルを使う気になれないと思えるくらいに便利です。
 
@@ -93,7 +93,7 @@ https://github.com/yuki-yano/zeno.zsh
 
 作者の yuki-yano さんによる記事が参考になります。
 
-https://zenn.dev/yano/articles/zsh_plugin_from_deno
+@[card](https://zenn.dev/yano/articles/zsh_plugin_from_deno)
 
 以下で Claude Code と共に生きる上で zeno.zsh に担ってもらっている役割を紹介します。
 
@@ -121,7 +121,7 @@ ghq でリポジトリ移動すると tmux セッション名が自動でリポ�
 
 複数ターミナルの管理について、タブ機能をもつターミナルもありますが私は tmux で複数ターミナルを管理するのが好きです。
 
-https://github.com/tmux/tmux/wiki/Installing
+@[card](https://github.com/tmux/tmux/wiki/Installing)
 
 ### 6.1. tmux おすすめキーバインド
 
@@ -153,11 +153,11 @@ Claude Code と同じディレクトリに移動した状態のターミナル�
 
 ### 6.2. tmux おすすめプラグイン
 
-https://github.com/tmux-plugins/tpm
+@[card](https://github.com/tmux-plugins/tpm)
 
 tmux のプラグインマネージャーです。
 
-https://github.com/kristijanhusak/tmux-simple-git-status
+@[card](https://github.com/kristijanhusak/tmux-simple-git-status)
 
 tmux のステータスバーに Git の状態を表示するプラグインです。
 
@@ -179,7 +179,7 @@ worktree 作成作業は定型化できると思うので worktree 作成用の�
 
 リポジトリの管理は ghq に任せたほうがよいです。
 
-https://github.com/x-motemen/ghq
+@[card](https://github.com/x-motemen/ghq)
 
 ## 8. エディタ
 
@@ -189,7 +189,7 @@ https://github.com/x-motemen/ghq
 
 ### 8.1. vim-tmux-send-to-ai-cli
 
-https://github.com/i9wa4/vim-tmux-send-to-ai-cli
+@[card](https://github.com/i9wa4/vim-tmux-send-to-ai-cli)
 
 拙作プラグインです。
 
@@ -205,13 +205,13 @@ Vim に帰着させることで改行しづらい問題や Gemini CLI にカス�
 
 ### 8.2. ddc.vim
 
-https://github.com/Shougo/ddc.vim
+@[card](https://github.com/Shougo/ddc.vim)
 
 補完機能を強化するために ddc.vim を使っています。
 
 ### 8.3. skkeleton
 
-https://github.com/vim-skk/skkeleton
+@[card](https://github.com/vim-skk/skkeleton)
 
 Vim で日本語入力をしづらいという問題を解決するために SKK を利用できる skkeleton を使っています。
 
@@ -219,7 +219,7 @@ Vim で日本語入力をしづらいという問題を解決するために SKK
 
 ### 8.4. ddc-source-file
 
-https://github.com/LumaKernel/ddc-source-file
+@[card](https://github.com/LumaKernel/ddc-source-file)
 
 ddc.vim の source です。ファイル名やパスを補完してくれます。
 
@@ -227,7 +227,7 @@ ddc.vim の source です。ファイル名やパスを補完してくれます�
 
 > CTRL-X CTRL-F
 
-https://vim-jp.org/vimdoc-ja/usr_24.html#24.3
+@[card](https://vim-jp.org/vimdoc-ja/usr_24.html#24.3)
 
 を使用すると同等の補完ができますが、より快適な ddc.vim の補完機能がよいと思います。
 
@@ -331,7 +331,7 @@ claude --dangerously-skip-permissions
 
 ができます。
 
-https://docs.anthropic.com/en/docs/claude-code/devcontainer
+@[card](https://docs.anthropic.com/en/docs/claude-code/devcontainer)
 
 Anthropic 公式が示す `.devcontainer` がそのまま使えます。
 
@@ -345,7 +345,7 @@ Anthropic 公式が示す `.devcontainer` がそのまま使えます。
     ],
 ```
 
-https://github.com/devcontainers/cli
+@[card](https://github.com/devcontainers/cli)
 
 Dev Container を CLI で利用する際は Dev Container CLI を利用しましょう。
 

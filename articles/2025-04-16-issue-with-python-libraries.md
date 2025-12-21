@@ -217,10 +217,12 @@ Pandas 2.2.3 では Python 3.13 用の wheel が用意されているのです�
 > ```
 
 Pandas 側の Issue:
-https://github.com/pandas-dev/pandas/issues/58734
+
+@[card](https://github.com/pandas-dev/pandas/issues/58734)
 
 CPython 側の Pull Request:
-https://github.com/python/cpython/pull/108429
+
+@[card](https://github.com/python/cpython/pull/108429)
 
 というわけで dbt-databricks==1.7.17 と Python 3.13 は相性が悪いということになります。
 
@@ -480,7 +482,7 @@ dbt-databricks==1.7.17 のインストールに成功しました。
 対応する Issue はこちらなのですが Python 3.12 ではもうバグ修正をしないようなのでこの2重括弧と共に生きていくしかないです。
 メンテナーの方も仰っていますが目立つバグなのでどうしても気になってしまいます。
 
-https://github.com/python/cpython/issues/132361
+@[card](https://github.com/python/cpython/issues/132361)
 
 ## 5. まとめ
 

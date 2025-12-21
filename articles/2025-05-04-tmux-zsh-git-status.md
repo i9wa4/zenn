@@ -112,7 +112,7 @@ tmux プラグインを利用して tmux のステータスラインにリポジ
 
 まずは tmux プラグインマネージャー tpm をインストールします。
 
-https://github.com/tmux-plugins/tpm
+@[card](https://github.com/tmux-plugins/tpm)
 
 tmux の設定ファイルがない、もしくは設定ファイルを `~/.tmux.conf` に配置している方は以下のコマンドを実行してください。
 
@@ -140,7 +140,7 @@ run '~/.tmux/plugins/tpm/tpm'
 
 リポジトリのステータスを表示させるための以下の tmux プラグインをインストールしていきます。
 
-https://github.com/kristijanhusak/tmux-simple-git-status
+@[card](https://github.com/kristijanhusak/tmux-simple-git-status)
 
 まずは `~/.tmux.conf` のプラグインリストに以下のように記載します。
 
@@ -264,6 +264,6 @@ PROMPT="${PROMPT}%F{#696969}%D{[%Y-%m-%d %H:%M:%S]} ${_shell_type} %f%K{#198CAA}
 私の `tmux.conf` と `.zshrc` の全体は以下です。
 最近まで `tmux.conf` はほとんど設定してなかったんですが、今回プラグインを導入してみて tmux の使用感を良くすることにもある程度注目してみてもよいなと感じました。
 
-https://github.com/i9wa4/dotfiles/blob/8cadb966fea3499926a0d9bacebd4179c57d2326/dot.config/tmux/tmux.conf
+@[card](https://github.com/i9wa4/dotfiles/blob/8cadb966fea3499926a0d9bacebd4179c57d2326/dot.config/tmux/tmux.conf)
 
-https://github.com/i9wa4/dotfiles/blob/5888691c07aea3a41cb44c0ec20500c8cb0c9ac2/dot.zshrc
+@[card](https://github.com/i9wa4/dotfiles/blob/5888691c07aea3a41cb44c0ec20500c8cb0c9ac2/dot.zshrc)

@@ -14,7 +14,7 @@ publication_name: "genda_jp"
 こんにちは。株式会社GENDAの MLOps エンジニア/データエンジニアの uma-chan です。
 この記事は GENDA Advent Calendar 2024 23日目の記事です。
 
-https://qiita.com/advent-calendar/2024/genda
+@[card](https://qiita.com/advent-calendar/2024/genda)
 
 データエンジニア3年目にして初めてダッシュボードを作成する機会を得たので時系列順に思ったことを書いていきます。
 

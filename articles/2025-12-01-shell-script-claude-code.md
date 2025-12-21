@@ -16,7 +16,7 @@ published_at: 2025-12-01 07:00
 株式会社GENDA データエンジニア / MLOps エンジニアの uma-chan です。
 この記事は GENDA Advent Calendar 2025 シリーズ1 Day 1 の記事です。
 
-https://qiita.com/advent-calendar/2025/genda
+@[card](https://qiita.com/advent-calendar/2025/genda)
 
 最近は AI コーディングエージェントをターミナルから利用する機会が増えてきました。
 
@@ -74,7 +74,7 @@ Claude Code だけが余計な出力なしで純粋な結果のみを返しま�
 
 以下は執筆時点のバージョンのスクリプトです。
 
-https://github.com/i9wa4/dotfiles/blob/ee547253107795444a7f56a7c1da52cba087de8a/bin/issue-worktree-create
+@[card](https://github.com/i9wa4/dotfiles/blob/ee547253107795444a7f56a7c1da52cba087de8a/bin/issue-worktree-create)
 
 このスクリプトは GitHub Issue に対応する Git Worktree を作成するものです。
 

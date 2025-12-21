@@ -12,7 +12,7 @@ published: true
 :::message alert
 **Deprecated**: この記事の内容は古くなっています。最新の情報は以下の記事を参照してください。
 
-https://i9wa4.github.io/blog/2025-12-15-uv-quarto-intro.html
+@[card](https://i9wa4.github.io/blog/2025-12-15-uv-quarto-intro.html)
 :::
 
 ## 1. はじめに
@@ -27,7 +27,7 @@ Organization のプライベートリポジトリでも気軽に使えるよう�
 
 ## 3. Quarto とは
 
-https://quarto.org/
+@[card](https://quarto.org/)
 
 > An open-source scientific and technical publishing system
 
@@ -37,7 +37,7 @@ https://quarto.org/
 GitHub Pages でブログ・スライド・Wikiを公開することも非常に簡単にできます。私は個人ページを Quarto で作成しています。
 GitHub Pages での公開方法が気になる方は以下の記事を参考にしてください。
 
-https://i9wa4.github.io/blog/2024-08-25-publishing-github-pages-with-quarto.html
+@[card](https://i9wa4.github.io/blog/2024-08-25-publishing-github-pages-with-quarto.html)
 
 ## 4. この記事でやること
 
@@ -63,11 +63,11 @@ pip install quarto-cli
 
 公式からインストーラも提供されています。私は利用したことがないため詳細の説明は省きます。
 
-https://quarto.org/docs/get-started/
+@[card](https://quarto.org/docs/get-started/)
 
 ### 6.2. (任意) VS Code の Quarto の拡張機能をインストールする
 
-https://marketplace.visualstudio.com/items?itemName=quarto.quarto
+@[card](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
 
 Quarto では .qmd という拡張子のファイルを使用します。VS Code の場合は Quarto 拡張機能をインストールすることで編集体験が向上しますので是非検討してみてください。
 ここでは誰でも再現可能な手順の説明に終始するため VS Code の Quarto 拡張機能に関する説明は省きます。
@@ -102,11 +102,11 @@ Quarto では .qmd という拡張子のファイルを使用します。VS Code
 
 気になる項目は公式ドキュメント
 
-https://quarto.org/
+@[card](https://quarto.org/)
 
 の検索欄から調べる、もしくは上記ページを管理しているリポジトリの DeepWiki
 
-https://deepwiki.com/quarto-dev/quarto-web
+@[card](https://deepwiki.com/quarto-dev/quarto-web)
 
 に質問するとほとんど全て解決できると思います。
 
@@ -381,7 +381,7 @@ HTML ファイルを Web ブラウザで開くと以下のような表示にな�
 
 その他詳細は下記ページを参照してください。
 
-https://quarto.org/docs/presentations/revealjs/presenting.html
+@[card](https://quarto.org/docs/presentations/revealjs/presenting.html)
 
 ## 11. スライドのテンプレートを SCSS に反映させる
 
@@ -393,17 +393,17 @@ https://quarto.org/docs/presentations/revealjs/presenting.html
 
 大本になるファイルが以下の SCSS ファイルです。
 
-https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/revealjs/quarto.scss
+@[card](https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/revealjs/quarto.scss)
 
 基本的にはここに登場する変数の値のうちオーバーライドしたいものを `custom.scss` に記載していけばよいです。
 
 不明点がある場合は先述しましたが DeepWiki が便利なので活用できますね。
 
-https://deepwiki.com/quarto-dev/quarto-cli
+@[card](https://deepwiki.com/quarto-dev/quarto-cli)
 
 DeepWiki でなくともよいですが AI にスライド内で利用したい色や書式を提示しつつ `quarto.scss` や以下の themes のファイルを読み込ませて作っていけば上手く作成できると思います。
 
-https://github.com/quarto-dev/quarto-cli/tree/main/src/resources/formats/revealjs/themes
+@[card](https://github.com/quarto-dev/quarto-cli/tree/main/src/resources/formats/revealjs/themes)
 
 コードブロックの配色など (~~正直どうでもよくて~~) 頭を使いたくない部分も今時の AI なら良い感じに作成してくれるのであまり苦労せず SCSS の編集をやっていけるでしょう。
 

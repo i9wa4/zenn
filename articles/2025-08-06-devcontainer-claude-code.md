@@ -49,7 +49,7 @@ Claude Code を Dev Container で利用する方法について2通り紹介し�
 
 以下に Anthropic が提供している Dev Container feature を利用する方法が記載されています。
 
-https://github.com/anthropics/devcontainer-features/blob/main/src/claude-code/README.md
+@[card](https://github.com/anthropics/devcontainer-features/blob/main/src/claude-code/README.md)
 
 抜粋すると以下の通りです。
 
@@ -66,11 +66,11 @@ https://github.com/anthropics/devcontainer-features/blob/main/src/claude-code/RE
 
 以下が Claude Code 向け Dev Container について記載されている公式ドキュメントです。
 
-https://docs.anthropic.com/en/docs/claude-code/devcontainer
+@[card](https://docs.anthropic.com/en/docs/claude-code/devcontainer)
 
 この中でリファレンス実装として Claude Code 自身の Dev Container 設定が紹介されています。
 
-https://github.com/anthropics/claude-code/tree/main/.devcontainer
+@[card](https://github.com/anthropics/claude-code/tree/main/.devcontainer)
 
 ```sh
 .devcontainer
@@ -87,7 +87,7 @@ https://github.com/anthropics/claude-code/tree/main/.devcontainer
 
 Dev Container 拡張をインストールしておく必要があります。
 
-https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
+@[card](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 ### 4.2. Dockerfile
 

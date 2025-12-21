@@ -222,7 +222,7 @@ which issue-worktree-create
 
 Issue 番号を指定するだけで worktree を一発生成！
 
-https://github.com/i9wa4/dotfiles/blob/40944eb/bin/issue-worktree-create
+@[card](https://github.com/i9wa4/dotfiles/blob/40944eb/bin/issue-worktree-create)
 
 ```bash
 # 使い方 (対象リポジトリに cd してから実行)
@@ -283,7 +283,7 @@ Generate a short English slug (kebab-case) for a Git branch name from the follow
 PR 番号を指定するだけで worktree を一発生成！
 コードレビュー時に重宝します。
 
-https://github.com/i9wa4/dotfiles/blob/40944eb/bin/pr-worktree-create
+@[card](https://github.com/i9wa4/dotfiles/blob/40944eb/bin/pr-worktree-create)
 
 ```bash
 # 使い方
@@ -311,7 +311,7 @@ PR のヘッドブランチを自動取得してチェックアウトします�
 
 worktree を安全に削除します。
 
-https://github.com/i9wa4/dotfiles/blob/40944eb/bin/worktree-remove
+@[card](https://github.com/i9wa4/dotfiles/blob/40944eb/bin/worktree-remove)
 
 ```bash
 # ghq パス形式
@@ -354,7 +354,7 @@ Processing: github.com/org/project-issue-123-add-api
 worktree 作成後に自動実行されるセットアップコマンドです。
 リポジトリごとの初期設定を自動化できます。
 
-https://github.com/i9wa4/dotfiles/blob/40944eb/bin/repo-setup
+@[card](https://github.com/i9wa4/dotfiles/blob/40944eb/bin/repo-setup)
 
 repo-setup の例
 

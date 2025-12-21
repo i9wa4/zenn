@@ -16,7 +16,7 @@ publication_name: "genda_jp"
 こんにちは。MLOps エンジニア/データエンジニアの uma-chan です。
 この記事は GENDA Advent Calendar 2024 2日目の記事です。
 
-https://qiita.com/advent-calendar/2024/genda
+@[card](https://qiita.com/advent-calendar/2024/genda)
 
 私が業務でよく利用する dbt のローカル開発環境の話をしていきます。
 
@@ -24,7 +24,7 @@ https://qiita.com/advent-calendar/2024/genda
 
 dbt について知りたい方がおそらく最初に読む記事から抜粋。
 
-https://zenn.dev/dbt_tokyo/books/537de43829f3a0/viewer/what_dbt
+@[card](https://zenn.dev/dbt_tokyo/books/537de43829f3a0/viewer/what_dbt)
 
 > dbt（正式名称はdata build tool）はデータアナリストやアナリティクスエンジニアが（ほぼ）SQLだけで、データを変換しデータウエアハウス、データマートを構築していくことができるツールです。
 
@@ -50,23 +50,23 @@ SELECT 文の書かれた SQL ファイル (モデルといいます) が複数�
 やはり圧倒的に使いやすいです。
 以下の拡張機能を使用するのが現状の最適解です。
 
-https://marketplace.visualstudio.com/items?itemName=innoverio.vscode-dbt-power-user
+@[card](https://marketplace.visualstudio.com/items?itemName=innoverio.vscode-dbt-power-user)
 
 日本語解説記事は以下をはじめとして複数投稿されています。
 
-https://www.yasuhisay.info/entry/2023/07/09/120000
+@[card](https://www.yasuhisay.info/entry/2023/07/09/120000)
 
 ### 4.2. Neovim
 
 VS Code 向け拡張機能に比べると提供されている機能の数は少ないものの十分に豊富な機能をもつプラグインが提供されています。
 
-https://github.com/PedramNavid/dbtpal
+@[card](https://github.com/PedramNavid/dbtpal)
 
 ### 4.3. Vim
 
 以下のプラグインでシンタックスハイライトといくつかの dbt コマンド連携機能が提供されています。
 
-https://github.com/chrismaher/vim-dbt
+@[card](https://github.com/chrismaher/vim-dbt)
 
 正直なところ機能が少ないので Vim ではなく Neovim もしくは VS Code を使うことをおすすめします。
 
@@ -76,7 +76,7 @@ https://github.com/chrismaher/vim-dbt
 なんといっても私の好きなエディタですし。
 というわけで最低限欲しかったモデル定義へのジャンプ機能のプラグインを作りました。
 
-https://github.com/i9wa4/vim-dbt-jump2def
+@[card](https://github.com/i9wa4/vim-dbt-jump2def)
 
 インストール方法や使い方は README を参照してください。
 ジャンプ機能はコマンドで提供したので各自好みのキーマッピングを設定することをオススメします。
