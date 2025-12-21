@@ -4,8 +4,8 @@ emoji: "🐴"
 type: "tech"
 topics:
   - "claudecode"
-  - "shellscript"
   - "github"
+  - "shellscript"
 publication_name: "genda_jp"
 published: true
 published_at: 2025-12-01 07:00

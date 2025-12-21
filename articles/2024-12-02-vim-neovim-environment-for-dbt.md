@@ -4,8 +4,8 @@ emoji: "🐴"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
   - "dbt"
-  - "vim"
   - "neovim"
+  - "vim"
 published: true
 published_at: 2024-12-02 07:00
 publication_name: "genda_jp"

@@ -3,10 +3,10 @@ title: "Python 開発環境最適化編 ― uv + pre-commit + GitHub Actions"
 emoji: "🐍"
 type: "tech"
 topics:
+  - "githubactions"
+  - "precommit"
   - "python"
   - "uv"
-  - "precommit"
-  - "githubactions"
   - "vscode"
 published: true
 published_at: 2025-08-06 19:01

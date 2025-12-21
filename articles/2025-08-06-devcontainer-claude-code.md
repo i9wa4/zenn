@@ -5,8 +5,8 @@ type: "tech"
 topics:
   - "claudecode"
   - "devcontainer"
-  - "vscode"
   - "docker"
+  - "vscode"
 published: true
 published_at: 2025-08-06 19:00
 publication_name: "genda_jp"

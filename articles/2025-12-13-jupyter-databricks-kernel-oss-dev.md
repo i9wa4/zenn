@@ -5,8 +5,8 @@ type: "tech"
 topics:
   - "databricks"
   - "jupyter"
-  - "python"
   - "oss"
+  - "python"
 publication_name: "genda_jp"
 published: true
 published_at: 2025-12-13 07:00

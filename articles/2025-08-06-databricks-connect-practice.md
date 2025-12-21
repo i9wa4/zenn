@@ -4,9 +4,9 @@ emoji: "🚀"
 type: "tech"
 topics:
   - "databricks"
+  - "devcontainer"
   - "python"
   - "spark"
-  - "devcontainer"
 published: true
 published_at: 2025-08-06 19:02
 publication_name: "genda_jp"

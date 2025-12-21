@@ -5,9 +5,9 @@ type: "tech"
 topics:
   - "databricks"
   - "jupyter"
-  - "uv"
-  - "precommit"
   - "mise"
+  - "precommit"
+  - "uv"
 publication_name: "genda_jp"
 published: true
 ---

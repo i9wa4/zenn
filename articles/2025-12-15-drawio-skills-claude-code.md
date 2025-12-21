@@ -3,9 +3,9 @@ title: "Claude Code で drawio 向け Skills を作成して使ってみた"
 emoji: "🐴"
 type: "tech"
 topics:
+  - "aws"
   - "claudecode"
   - "drawio"
-  - "aws"
 publication_name: "genda_jp"
 published: true
 ---

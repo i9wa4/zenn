@@ -3,10 +3,10 @@ title: "Git Worktree & ghq 入門 ― Issue/PR 毎の環境を一発生成する
 emoji: "🐴"
 type: "tech"
 topics:
+  - "claudecode"
+  - "ghq"
   - "git"
   - "gitworktree"
-  - "ghq"
-  - "claudecode"
 publication_name: "genda_jp"
 published: true
 published_at: 2025-12-07 07:00

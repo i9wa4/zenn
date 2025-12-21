@@ -3,6 +3,7 @@ title: "データ分析を促進する dbt incremental モデル設計 ― 全�
 emoji: "📊"
 type: "tech"
 topics:
+  - "bigquery"
   - "dbt"
 published: true
 published_at: 2025-10-31 07:00

@@ -3,10 +3,10 @@ title: "Vim x tmux によるレビュー用 MAGI システム (AI多数決レビ
 emoji: "🐴"
 type: "tech"
 topics:
-  - "vim"
-  - "tmux"
   - "claudecode"
   - "codexcli"
+  - "tmux"
+  - "vim"
 publication_name: "genda_jp"
 published: true
 published_at: 2025-12-04 07:00
