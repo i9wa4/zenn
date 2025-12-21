@@ -2,7 +2,8 @@
 title: "データ分析を促進する dbt incremental モデル設計 ― 全期間追跡の低コスト化"
 emoji: "📊"
 type: "tech"
-topics: ["dbt", "dataengineering", "データ分析"]
+topics:
+  - "dbt"
 published: true
 published_at: 2025-10-31 07:00
 publication_name: "pivotmedia"

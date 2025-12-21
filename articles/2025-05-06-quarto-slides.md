@@ -3,8 +3,8 @@ title: "Markdown ライクな Quarto でスライドを作成して GitHub Actio
 emoji: "🐴"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
-  - "quarto"
   - "githubactions"
+  - "quarto"
   - "revealjs"
 published: true
 ---

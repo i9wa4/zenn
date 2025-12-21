@@ -3,9 +3,9 @@ title: "tmux と Zsh に Git リポジトリのステータスを表示する"
 emoji: "🐴"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
+  - "git"
   - "tmux"
   - "zsh"
-  - "git"
 published: true
 ---
 

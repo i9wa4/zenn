@@ -3,9 +3,9 @@ title: "個人的ターミナル最適化 for Claude Code"
 emoji: "🐴"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
-  - "vim"
-  - "tmux"
   - "claudecode"
+  - "tmux"
+  - "vim"
 published: true
 ---
 
