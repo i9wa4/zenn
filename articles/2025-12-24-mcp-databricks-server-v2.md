@@ -65,11 +65,11 @@ published: true
 - REVOKE
 
 AI エージェントが誤って破壊的なクエリを実行することを防ぎます。
-そもそも Service Principal 認証に対応しているので、権限をそもそも制限しておけるようにはなっていますが、二重の安全策として有効です。
+Service Principal 認証に対応しているのでそもそも権限自体を制限しやすくなっていますが、二重の安全策として有効です。
 
 ### 3.3. 認証方式の改善
 
-`.env` ファイルによる環境変数読み込みから `~/.databrickscfg` を使用する方式に変更しました。
+設定の優先順位が分かりづらかったりコンフリクトしやすい `.env` ファイル等の環境変数優位な設定から `~/.databrickscfg` を使用する方式に変更しました。
 
 Databricks CLI や SDK と同じ設定ファイルを共有できるため、設定の一元管理が可能になりました。
 
@@ -91,7 +91,9 @@ warehouse_id = your_warehouse_id
 
 ### 3.5. モダンな Python プロジェクト構造
 
-`uv` を使用したモダンな Python プロジェクト構造に移行しました。
+以下の記事のようにプロジェクト構造を改善しました。
+
+@[card](https://zenn.dev/genda_jp/articles/2025-12-06-ai-guardrails-local-cloud)
 
 ## 4. 設定例
 
