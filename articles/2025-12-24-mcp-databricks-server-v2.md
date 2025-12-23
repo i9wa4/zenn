@@ -5,8 +5,8 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
   - "databricks"
   - "mcp"
-published: true
 publication_name: "genda_jp"
+published: true
 ---
 
 ## 1. はじめに
