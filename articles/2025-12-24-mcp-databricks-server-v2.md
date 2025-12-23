@@ -1,5 +1,5 @@
 ---
-title: "Databricks MCP Server を大幅アップデートした"
+title: "Databricks MCP Server をアップデートしました"
 emoji: "🐴"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
