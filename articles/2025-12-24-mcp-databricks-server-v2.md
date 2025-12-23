@@ -12,7 +12,7 @@ published: true
 ## 1. はじめに
 
 株式会社GENDA データエンジニア / MLOps エンジニアの uma-chan です。
-この記事は Databricks Advent Calendar 2025 シリーズ2 Day 23 の記事です。
+この記事は Databricks Advent Calendar 2025 シリーズ3 Day 23 の記事です。
 
 @[card](https://qiita.com/advent-calendar/2025/databricks)
 
@@ -20,7 +20,7 @@ published: true
 
 @[card](https://zenn.dev/genda_jp/articles/2025-04-29-mcp-databricks-server-service-principal)
 
-それから自分が使わないという理由で半年以上放置していましたが、急遽大幅なアップデートを行いました。
+それから自分が使わないという理由で半年以上放置していましたが、必要になったので急遽アップデートを行いました。
 
 @[card](https://github.com/i9wa4/mcp-databricks-server/)
 
