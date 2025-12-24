@@ -1,7 +1,7 @@
 ---
 title: "jupyter-databricks-kernel を作りました ― OSS 開発の振り返り"
 emoji: "🐴"
-type: "tech"
+type: "idea"
 topics:
   - "databricks"
   - "jupyter"
