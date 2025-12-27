@@ -42,21 +42,6 @@ jobs:
         with:
           cache: true
 
-      - name: Setup safe-chain
-        run: |
-          curl -fsSL https://github.com/AikidoSec/safe-chain/releases/latest/download/install-safe-chain.sh | sh
-          "$HOME/.safe-chain/bin/safe-chain" setup-ci
-
-      # - name: Test safe-chain blocks malware
-      #   run: |
-      #     export PATH="$HOME/.safe-chain/shims:$PATH"
-      #     npm install safe-chain-test && exit 1 || echo "Blocked as expected"
-
-      - name: Install dependencies
-        run: |
-          export PATH="$HOME/.safe-chain/shims:$PATH"
-          npm ci
-
       - name: Cache pre-commit
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
         with:
