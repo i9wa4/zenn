@@ -96,12 +96,12 @@ Databricks でのローカル開発には、公式の VS Code 拡張 (Databricks
 ### 3.3. メリット
 
 - 既存のローカル開発環境のフル活用
-  - VS Code + Jupyter 拡張で快適な開発体験
-  - 使い慣れたエディタの機能をフル活用
+    - VS Code + Jupyter 拡張で快適な開発体験
+    - 使い慣れたエディタの機能をフル活用
 - AI ツールとの連携が容易
-  - `jupyter execute` コマンドでノートブックを実行し、結果を取得できる
-  - AI が実行結果を見て次のアクションを判断できるため、自律的な試行錯誤が可能
-  - ローカル環境から独立しているため、大規模 DataFrame の処理などクラスタのリソースを気兼ねなく利用できる
+    - `jupyter execute` コマンドでノートブックを実行し、結果を取得できる
+    - AI が実行結果を見て次のアクションを判断できるため、自律的な試行錯誤が可能
+    - ローカル環境から独立しているため、大規模 DataFrame の処理などクラスタのリソースを気兼ねなく利用できる
 
 ### 3.4. デメリット
 
@@ -196,7 +196,7 @@ main(
 
 - ノートブックは「起動装置」に徹する
 - `dbutils` は Databricks Compute では事前定義されているので Notebook 内で使い切っておく
-  - .py ファイルに `dbutils` を書かないことで未定義エラーを効かせることができる
+    - .py ファイルに `dbutils` を書かないことで未定義エラーを効かせることができる
 
 ### 4.5. main.py にロジックを集約
 
@@ -351,9 +351,9 @@ dev = [
 
 - `dependencies`: Databricks にインストールするパッケージ (Databricks Runtime にないもの)
 - `[project.optional-dependencies]`: Databricks Runtime プリインストール済みパッケージ
-  - `uv sync` ではインストールされない (依存解決のみに使用)
-  - Databricks Runtime との互換性を確保するためにバージョンを固定
-  - Databricks 側から requirements.txt が提供されてなさそうなのでリリースノートから情報を取得しました
+    - `uv sync` ではインストールされない (依存解決のみに使用)
+    - Databricks Runtime との互換性を確保するためにバージョンを固定
+    - Databricks 側から requirements.txt が提供されてなさそうなのでリリースノートから情報を取得しました
 - `dev`: ローカル開発ツール
 
 ### 5.4. Renovate で Databricks Runtime パッケージを更新対象から除外
