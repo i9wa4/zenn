@@ -1,17 +1,26 @@
 [tools]
-# Runtime
-node = "24"
-
 # Development tools
 pre-commit = "4.5.1"
 
 # Aqua tools
-"aqua:gitleaks/gitleaks" = "8.30.0"
-"aqua:rhysd/actionlint" = "1.7.9"
+"aqua:gitleaks/gitleaks"       = "8.30.0"
+"aqua:rhysd/actionlint"        = "1.7.9"
 "aqua:suzuki-shunsuke/ghalint" = "1.5.4"
-"aqua:suzuki-shunsuke/ghatm" = "1.0.0"
-"aqua:suzuki-shunsuke/pinact" = "3.7.4"
-"aqua:zizmorcore/zizmor" = "1.19.0"
+"aqua:suzuki-shunsuke/ghatm"   = "1.0.0"
+"aqua:suzuki-shunsuke/pinact"  = "3.7.4"
+"aqua:zizmorcore/zizmor"       = "1.19.0"
 
 # GitHub Tools
-"github:rvben/rumdl" = "0.0.204"
+"github:rvben/rumdl" = "v0.0.203"
+
+[tasks.init]
+description = "Initialize Zenn environment"
+run = """
+npx zenn init
+"""
+
+[tasks.preview]
+description = "Preview Zenn articles locally"
+run = """
+npx zenn preview
+"""
