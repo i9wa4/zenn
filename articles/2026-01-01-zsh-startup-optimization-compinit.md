@@ -13,8 +13,11 @@ Zsh の起動時間を計測すると compinit 処理がボトルネックにな
 compinit の仕組みを理解し、適切に設定することで起動時間を短縮する方法を紹介します。
 
 Zinit を使った起動時間短縮については以下の記事も合わせてご覧ください。
+以下の記事では compinit を遅延読み込みする方法も紹介しています。
 
 @[card](https://zenn.dev/i9wa4/articles/2026-01-01-zsh-startup-optimization-zinit)
+
+以降では compinit の実行時間を短縮する方法に焦点を当てます。
 
 ## 2. 環境
 
