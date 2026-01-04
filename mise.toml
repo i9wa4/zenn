@@ -11,7 +11,7 @@ pre-commit = "4.5.1"
 "aqua:zizmorcore/zizmor"       = "1.19.0"
 
 # GitHub Tools
-"github:rvben/rumdl" = "v0.0.204"
+"github:rvben/rumdl" = "v0.0.205"
 
 [tasks.preview]
 description = "Preview Zenn articles locally"
