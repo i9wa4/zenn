@@ -4,10 +4,10 @@ pre-commit = "4.5.1"
 
 # Aqua tools
 "aqua:gitleaks/gitleaks"       = "8.30.0"
-"aqua:rhysd/actionlint"        = "1.7.9"
+"aqua:rhysd/actionlint"        = "1.7.10"
 "aqua:suzuki-shunsuke/ghalint" = "1.5.4"
 "aqua:suzuki-shunsuke/ghatm"   = "1.0.0"
-"aqua:suzuki-shunsuke/pinact"  = "3.7.4"
+"aqua:suzuki-shunsuke/pinact"  = "3.8.0"
 "aqua:zizmorcore/zizmor"       = "1.19.0"
 
 # GitHub Tools
