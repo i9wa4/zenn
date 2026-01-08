@@ -55,4 +55,4 @@ jobs:
       - name: Run pre-commit
         run: |
           mise exec -- pre-commit run --all-files
-          mise exec -- pre-commit run gitleaks-history --all-files
+          mise exec -- pre-commit run gitleaks-history --all-files --hook-stage manual
