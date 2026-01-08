@@ -17,55 +17,55 @@ repos:
     hooks:
       - id: gitleaks
         name: Detect hardcoded secrets
-        entry: mise exec -- gitleaks protect --verbose --redact --staged
+        entry: gitleaks protect --verbose --redact --staged
         language: system
         pass_filenames: false
 
       - id: gitleaks-history
         name: Detect hardcoded secrets (history)
-        entry: mise exec -- gitleaks detect --verbose --redact
+        entry: gitleaks detect --verbose --redact
         language: system
         pass_filenames: false
         stages: [manual]
 
       - id: actionlint
         name: actionlint
-        entry: mise exec -- actionlint
+        entry: actionlint
         language: system
         files: ^\.github/workflows/.*\.(yml|yaml)$
 
       - id: ghalint
         name: ghalint
-        entry: mise exec -- ghalint run
+        entry: ghalint run
         language: system
         files: ^\.github/workflows/.*\.(yml|yaml)$
 
       - id: ghatm
         name: ghatm
-        entry: mise exec -- ghatm set -t 5
+        entry: ghatm set -t 5
         language: system
         files: ^\.github/workflows/.*\.(yml|yaml)$
 
       - id: pinact
         name: pinact
-        entry: mise exec -- pinact run
+        entry: pinact run
         language: system
         files: ^\.github/workflows/.*\.(yml|yaml)$
 
       - id: zizmor
         name: zizmor
-        entry: mise exec -- zizmor
+        entry: zizmor
         language: system
         files: ^\.github/workflows/.*\.(yml|yaml)$
 
       - id: rumdl-check
         name: rumdl-check
-        entry: mise exec -- rumdl check
+        entry: rumdl check
         language: system
         files: \.md$
 
       - id: rumdl-fix
         name: rumdl-fix
-        entry: mise exec -- rumdl check --fix
+        entry: rumdl check --fix
         language: system
         files: \.md$

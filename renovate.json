@@ -4,39 +4,11 @@
     "config:recommended",
     ":enablePreCommit"
   ],
+  "nix": {
+    "enabled": true
+  },
   "lockFileMaintenance": {
     "enabled": true
   },
-  "minimumReleaseAge": "7 days",
-  "packageRules": [
-    {
-      "matchManagers": [
-        "mise",
-        "regex"
-      ],
-      "groupName": "mise tools"
-    }
-  ],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "mise\\.toml$"
-      ],
-      "matchStrings": [
-        "\"github:(?<depName>[^\"]+)\"\\s*=\\s*\"(?<currentValue>[^\"]+)\""
-      ],
-      "datasourceTemplate": "github-releases"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "mise\\.toml$"
-      ],
-      "matchStrings": [
-        "#\\s*renovate:\\s*depName=(?<depName>\\S+)\\ngcloud\\s*=\\s*\"(?<currentValue>[^\"]+)\""
-      ],
-      "datasourceTemplate": "github-tags"
-    }
-  ]
+  "minimumReleaseAge": "7 days"
 }
