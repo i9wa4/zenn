@@ -35,6 +35,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Install Nix
@@ -50,17 +51,28 @@ jobs:
       - name: Load Nix environment
         run: nix develop --command true
 
-      - name: Cache pre-commit
+      - name: Install uv
+        uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
+
+      - name: Cache
         uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: |
             ~/.cache/pre-commit
+            ~/.cache/uv
+            .venv
           key: |
-            pre-commit-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock', '.pre-commit-config.yaml') }}
+            pre-commit-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('flake.lock', '.pre-commit-config.yaml', 'uv.lock') }}
           restore-keys: |
             pre-commit-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Run pre-commit
         run: |
-          nix develop --command pre-commit run --all-files --verbose
-          nix develop --command pre-commit run gitleaks-history --all-files --verbose --hook-stage manual
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            nix develop --command uv run pre-commit run --verbose --from-ref ${{ github.event.pull_request.base.sha }} --to-ref ${{ github.sha }}
+          elif [ "${{ github.event_name }}" = "push" ] && [ -n "${{ github.event.before }}" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            nix develop --command uv run pre-commit run --verbose --from-ref ${{ github.event.before }} --to-ref ${{ github.sha }}
+          else
+            nix develop --command uv run pre-commit run --verbose --all-files
+          fi
+          nix develop --command uv run pre-commit run gitleaks-history --all-files --verbose --hook-stage manual
