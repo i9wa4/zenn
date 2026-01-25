@@ -3,16 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    dotfiles = {
-      url = "github:i9wa4/dotfiles";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
     self,
     nixpkgs,
-    dotfiles,
   }: let
     systems = ["aarch64-darwin" "x86_64-linux" "aarch64-linux"];
     forAllSystems = nixpkgs.lib.genAttrs systems;
@@ -22,20 +17,18 @@
 
     devShells = forAllSystems (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      customPkgs = dotfiles.packages.${system};
     in {
       default = pkgs.mkShell {
         packages = [
-          # nixpkgs
           pkgs.actionlint
+          pkgs.ghalint
+          pkgs.ghatm
           pkgs.gitleaks
-          pkgs.pre-commit
+          pkgs.pinact
+          # NOTE: pre-commit is managed via `uv run pre-commit` to avoid Swift build dependency
+          pkgs.rumdl
+          pkgs.uv
           pkgs.zizmor
-          # custom packages from dotfiles
-          customPkgs.ghalint
-          customPkgs.ghatm
-          customPkgs.pinact
-          customPkgs.rumdl
         ];
       };
     });
