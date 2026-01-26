@@ -42,7 +42,34 @@ AI コーディングエージェントを組織内に展開しようとする�
 
 開発者でなくても AI コーディングエージェントが使える環境を目指しました。
 
-## 3. 対象ユーザー
+## 3. なぜ簡単か
+
+### 3.1. Dev Container による環境構築
+
+Dev Container により環境構築が自動化され、Databricks や AI 特有の初期設定を一般的な手順に寄せられます。
+
+### 3.2. OAuth U2M 認証
+
+このテンプレートは OAuth U2M (User-to-Machine) 認証のみで動作します。
+
+従来の方法との比較
+
+| 認証方式              | 設定の複雑さ | トークン管理   | 権限管理     |
+| --------------------- | ------------ | -------------- | ------------ |
+| Personal Access Token | 中           | 手動更新が必要 | トークン単位 |
+| Service Principal     | 高           | 自動           | SP 単位      |
+| OAuth U2M             | 低           | 自動更新       | ユーザー単位 |
+
+OAuth U2M のメリット
+
+- Service Principal の作成が不要
+- 個人の認証情報で即座に利用開始
+- 開発者ごとの権限で動作 (最小権限の原則)
+- トークン管理の手間が不要 (OAuth 自動更新)
+
+Dev Container 起動時に `databricks auth login` が実行され、ブラウザで認証するだけで完了します。
+
+## 4. 対象ユーザー
 
 このテンプレートは以下のようなユーザーに適しています。
 
@@ -55,9 +82,9 @@ AI コーディングエージェントを組織内に展開しようとする�
 - 大量にトークンを消費するヘビーユーザー
 - リアルタイムでの利用制限が必要な場合
 
-## 4. Databricks に集約するもの
+## 5. Databricks に集約するもの
 
-### 4.1. AI エージェント (Goose + Mosaic AI Gateway)
+### 5.1. AI エージェント (Goose + Mosaic AI Gateway)
 
 Goose は Block 社が開発した AI コーディングエージェントです。Databricks Mosaic AI Gateway 経由で Claude や GPT などの LLM を利用できます。
 
@@ -75,7 +102,7 @@ Goose は以下のことができます。
 
 技術部門以外のメンバーでも、自然言語で「このテーブルの集計をして」「Notebook を実行して」と依頼するだけで操作できます。
 
-### 4.2. Notebook (jupyter-databricks-kernel)
+### 5.2. Notebook (jupyter-databricks-kernel)
 
 jupyter-databricks-kernel により、Notebook のコードを Databricks クラスタ上で完全リモート実行できます。
 
@@ -87,7 +114,7 @@ uv run jupyter execute notebooks/sample.ipynb --inplace --kernel_name=databricks
 
 Goose には jupyter-notebook スキルが組み込まれており、「この Notebook を実行して」と依頼するだけで上記コマンドを実行して結果を取得してくれます。ローカル環境のリソースを考慮する必要はありません。
 
-### 4.3. SQL (mcp-databricks-server)
+### 5.3. SQL (mcp-databricks-server)
 
 mcp-databricks-server が事前設定されており、Goose から Databricks SQL Warehouse に対話的にアクセスできます。
 
@@ -102,9 +129,9 @@ mcp-databricks-server が事前設定されており、Goose から Databricks S
 
 SQL を書けなくても「売上の月別推移を見たい」と伝えるだけで、Goose が適切なクエリを生成して実行します。
 
-## 5. ローカルからの操作方法
+## 6. ローカルからの操作方法
 
-### 5.1. セットアップ手順
+### 6.1. セットアップ手順
 
 前提条件
 
@@ -139,7 +166,7 @@ SQL を書けなくても「売上の月別推移を見たい」と伝えるだ�
    - Databricks OAuth 認証 (ブラウザが開きます)
    - Goose の MCP 設定
 
-### 5.2. 使い方
+### 6.2. 使い方
 
 ```bash
 goose
@@ -153,33 +180,6 @@ goose
 - 「notebooks/sample.ipynb を実行して」
 
 技術的な知識がなくても、やりたいことを自然言語で伝えるだけで操作できます。
-
-## 6. なぜ簡単か
-
-### 6.1. Dev Container による環境構築
-
-Dev Container により環境構築が自動化され、Databricks や AI 特有の初期設定を一般的な手順に寄せられます。
-
-### 6.2. OAuth U2M 認証
-
-このテンプレートは OAuth U2M (User-to-Machine) 認証のみで動作します。
-
-従来の方法との比較
-
-| 認証方式              | 設定の複雑さ | トークン管理   | 権限管理     |
-| --------------------- | ------------ | -------------- | ------------ |
-| Personal Access Token | 中           | 手動更新が必要 | トークン単位 |
-| Service Principal     | 高           | 自動           | SP 単位      |
-| OAuth U2M             | 低           | 自動更新       | ユーザー単位 |
-
-OAuth U2M のメリット
-
-- Service Principal の作成が不要
-- 個人の認証情報で即座に利用開始
-- 開発者ごとの権限で動作 (最小権限の原則)
-- トークン管理の手間が不要 (OAuth 自動更新)
-
-Dev Container 起動時に `databricks auth login` が実行され、ブラウザで認証するだけで完了します。
 
 ## 7. 運用
 
