@@ -186,6 +186,8 @@ Dev Container 起動時に `databricks auth login` が実行され、ブラウ�
 
 ユーザー単位のトークン消費量を監視し、予算超過時に自動でアクセスを制限する仕組みを Databricks Job で実装できます。
 
+なお、予算管理 Job は Databricks Job として実行するため、Spark コンテキストから自動的に認証情報を取得します。Dev Container の OAuth U2M 認証とは独立して動作します。
+
 仕組み
 
 - `system.serving.endpoint_usage` テーブルでトークン消費量を集計
@@ -434,6 +436,8 @@ def get_current_rate_limits(host: str, token: str) -> dict:
 
 def reset_rate_limits(host: str, token: str) -> bool:
     """Reset rate limits to unblock all users. Returns success status."""
+    # WARNING: This PUT overwrites all rate_limits completely.
+    # Check existing rate_limits before running if you have other limits.
     config = {"rate_limits": [], "usage_tracking_config": {"enabled": True}}
 
     url = f"{host}/api/2.0/serving-endpoints/{ENDPOINT_NAME}/ai-gateway"
