@@ -22,8 +22,9 @@ AI エージェント、Notebook、SQL をすべて Databricks に集約し、�
 
 これにより以下のメリットが得られます。
 
-- Python や Spark の環境構築が不要 (Dev Container が自動設定)
-- OAuth U2M 認証のみで利用可能
+- 技術部門以外のメンバーでも自然言語で AI/Notebook/SQL を操作できる
+- ローカル環境の構築が不要 (Dev Container + Databricks でリモート実行)
+- Service Principal の作成不要で即座に利用開始
 
 本記事ではこのテンプレートの機能と使い方を紹介します。
 
