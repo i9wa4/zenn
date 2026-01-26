@@ -24,7 +24,7 @@ AI エージェント、Notebook、SQL をすべて Databricks に集約し、�
 
 - 技術部門以外のメンバーでも自然言語で AI/Notebook/SQL を操作できる
 - ローカル環境の構築が不要 (Dev Container + Databricks でリモート実行)
-- Service Principal の作成不要で即座に利用開始
+- 個人認証で自分の権限範囲内のみ操作可能 (管理者の設定不要)
 
 本記事ではこのテンプレートの機能と使い方を紹介します。
 
