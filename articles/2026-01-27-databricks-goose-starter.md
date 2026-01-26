@@ -56,7 +56,7 @@ Dev Container により環境構築が自動化され、Databricks や AI 特有
 従来の方法との比較
 
 | 認証方式              | 設定の複雑さ | トークン管理   | 権限管理     |
-| --------------------- | ------------ | -------------- | ------------ |
+| ---                   | ---          | ---            | ---          |
 | Personal Access Token | 中           | 手動更新が必要 | トークン単位 |
 | Service Principal     | 高           | 自動           | SP 単位      |
 | OAuth U2M             | 低           | 自動更新       | ユーザー単位 |
@@ -152,7 +152,7 @@ SQL を書けなくても「売上の月別推移を見たい」と伝えるだ�
    以下の環境変数を設定
 
    | 変数                          | 説明                          |
-   | ----------------------------- | ----------------------------- |
+   | ---                           | ---                           |
    | `DATABRICKS_HOST`             | Databricks ワークスペース URL |
    | `DATABRICKS_CLUSTER_ID`       | Notebook 実行用クラスタ ID    |
    | `DATABRICKS_SQL_WAREHOUSE_ID` | SQL 実行用 Warehouse ID       |
