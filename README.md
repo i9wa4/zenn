@@ -5,5 +5,5 @@
 To preview Zenn articles locally:
 
 ```bash
-npx zenn preview
+npx zenn-cli preview
 ```
