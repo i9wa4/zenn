@@ -91,15 +91,11 @@ Goose は Block 社が開発した AI コーディングエージェントです
 
 @[card](https://github.com/block/goose)
 
-```console
-goose
-```
-
 Goose は以下のことができます。
 
 - コマンド実行 (`uv run jupyter execute` を含む)
 - Notebook の読み書き
-- コードベースとの対話
+- Codebase との対話
 
 技術部門以外のメンバーでも、自然言語で「このテーブルの集計をして」「Notebook を実行して」と依頼するだけで操作できます。
 
