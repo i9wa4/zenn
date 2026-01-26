@@ -91,6 +91,12 @@ Goose は Block 社が開発した AI コーディングエージェントです
 
 @[card](https://github.com/block/goose)
 
+なぜ Goose か
+
+- Databricks ネイティブサポート (OAuth U2M でそのまま使える)
+- OSS でありながら企業 (Block 社) が主体開発 (継続性と品質を担保)
+- 週1-2回リリースの活発な開発
+
 Goose は以下のことができます。
 
 - コマンド実行 (`uv run jupyter execute` を含む)
