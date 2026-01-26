@@ -157,8 +157,7 @@ goose
 
 ### 6.1. Dev Container による環境構築
 
-Dev Container により環境構築が自動化されています。
-Dev Container 自体が簡単とは言いませんが、環境構築の悩みを Databricks や AI 特有のものから一般的な話に帰着できるので何とかしやすいです。
+Dev Container により環境構築が自動化され、Databricks や AI 特有の初期設定を一般的な手順に寄せられます。
 
 ### 6.2. OAuth U2M 認証
 
