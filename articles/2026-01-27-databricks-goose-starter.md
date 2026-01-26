@@ -145,10 +145,7 @@ goose
 ### 5.1. Dev Container による環境構築
 
 Dev Container により環境構築が自動化されています。
-
-- Python、Spark のローカルインストール不要
-- 依存関係は自動でインストール
-- 「Reopen in Container」をクリックするだけ
+Dev Container 自体が簡単とは言いませんが、環境構築の悩みを Databricks や AI 特有のものから一般的な話に帰着できるので何とかしやすいです。
 
 ### 5.2. OAuth U2M 認証
 
@@ -188,7 +185,7 @@ Dev Container 起動時に `databricks auth login` が実行され、ブラウ�
 
 ### 6.2. 予算管理
 
-ユーザー単位のトークン消費量を監視し、予算超過時に自動でアクセスを制限する仕組みを Databricks Job で実装しています。
+ユーザー単位のトークン消費量を監視し、予算超過時に自動でアクセスを制限する仕組みを Databricks Job で実装できます。
 
 仕組み
 
@@ -514,7 +511,7 @@ AI エージェント、Notebook、SQL をすべて Databricks に集約する�
 
 - ローカルから AI/Notebook/SQL を統一的に操作
 - ローカル環境の構築が不要
-- OAuth 認証だけで即座に利用開始
+- OAuth U2M 認証だけで即座に利用開始
 - 技術部門以外のメンバーでも AI コーディングが可能
 
 ぜひお試しください。Issue でバグ報告や機能提案などお気軽にどうぞ。
