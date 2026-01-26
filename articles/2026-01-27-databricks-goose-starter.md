@@ -196,11 +196,11 @@ goose
 - Mosaic AI Gateway の `rate_limits` API で `calls=0` を設定してユーザーをブロック
 - 月初に `rate_limits` をリセットして全ユーザーを解除
 
-budget-monitor Job
+:::details budget-monitor Job のコード例
 
 予算超過ユーザーを検出してブロックする Job です。
 
-```python
+```python:budget_monitor.py
 """
 Budget Monitor Job - Detects budget overages and blocks users via rate limits.
 """
@@ -373,11 +373,13 @@ if __name__ == "__main__":
     main()
 ```
 
-budget-monthly-reset Job
+:::
+
+:::details budget-monthly-reset Job のコード例
 
 月初に rate_limits をリセットする Job です。
 
-```python
+```python:budget_monthly_reset.py
 """
 Budget Monthly Reset Job - Resets rate limits at the beginning of each month.
 """
@@ -509,6 +511,8 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+:::
 
 ## 8. まとめ
 
