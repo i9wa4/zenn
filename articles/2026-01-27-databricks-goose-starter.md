@@ -1,5 +1,5 @@
 ---
-title: "databricks-goose-starter を作りました ― 開発者でなくても使える AI コーディング環境"
+title: "全部 Databricks に集約して、ローカルから操作 ― AI エージェント・Notebook・SQL"
 emoji: "🦆"
 type: "tech"
 topics:
@@ -16,55 +16,34 @@ published: false
 
 株式会社GENDA データエンジニア / MLOps エンジニアの uma-chan です。
 
-技術部門以外のメンバー (データアナリストなど) にも AI コーディング環境を提供したい、そんな課題を解決する Dev Container テンプレートを OSS として公開しました。
+AI エージェント、Notebook、SQL をすべて Databricks に集約し、ローカルから操作できる Dev Container テンプレートを OSS として公開しました。
 
 @[card](https://github.com/i9wa4/databricks-goose-starter)
 
-本記事では、このテンプレートの機能と使い方を紹介します。
+これにより以下のメリットが得られます。
 
-本記事は下記イベントでの登壇内容を補完するものです。
+- Python や Spark の環境構築が不要 (Dev Container が自動設定)
+- OAuth U2M 認証のみで利用可能
+
+本記事ではこのテンプレートの機能と使い方を紹介します。
+
+なお本記事は下記イベントでの登壇内容を補完するものです。
 
 @[card](https://jedai.connpass.com/event/379174/)
 
 ## 2. 解決したい課題
 
-### 2.1. AI コーディングエージェントの普及の壁
-
-AI コーディングエージェントを組織内に展開しようとすると、以下のような課題があると思います。
+AI コーディングエージェントを組織内に展開しようとすると、以下のような課題があります。
 
 - 環境構築のハードルが高い
 - 認証設定が複雑 (API キー管理、Service Principal 作成など)
 - 技術部門以外のメンバーには敷居が高い
 
-### 2.2. このテンプレートの解決策
-
-databricks-goose-starter はこれらの課題を解決します。
-
-- **Dev Container で環境構築を自動化**: 「Reopen in Container」をクリックするだけ
-- **OAuth U2M 認証で複雑な認証設定不要**: ブラウザで認証するだけで完了
-- **Goose 経由で対話的に操作**: 自然言語で Notebook 実行や SQL 実行を依頼
-- **ローカルに Python や Spark をインストール不要**: すべて Databricks 上で実行
-
 開発者でなくても AI コーディングエージェントが使える環境を目指しました。
 
-## 3. 対象ユーザー
+## 3. Databricks に集約するもの
 
-このテンプレートは以下のようなユーザーに適しています。
-
-- データアナリスト、ビジネスユーザー
-- インターン、外部協力者
-- 今すぐ AI コーディング環境を使いたい人
-
-逆に適していないのは以下のようなケースです。
-
-- 大量にトークンを消費するヘビーユーザー
-- リアルタイムでの利用制限が必要な場合
-
-## 4. 作ったもの
-
-Databricks Mosaic AI Gateway を LLM バックエンドとして使う Goose (AI コーディングエージェント) の Dev Container テンプレートです。
-
-### 4.1. Goose + Mosaic AI Gateway
+### 3.1. AI エージェント (Goose + Mosaic AI Gateway)
 
 Goose は Block 社が開発した AI コーディングエージェントです。Databricks Mosaic AI Gateway 経由で Claude や GPT などの LLM を利用できます。
 
@@ -82,7 +61,19 @@ Goose は以下のことができます。
 
 技術部門以外のメンバーでも、自然言語で「このテーブルの集計をして」「Notebook を実行して」と依頼するだけで操作できます。
 
-### 4.2. MCP Server (対話的な SQL 実行)
+### 3.2. Notebook (jupyter-databricks-kernel)
+
+jupyter-databricks-kernel により、Notebook のコードを Databricks クラスタ上で完全リモート実行できます。
+
+```bash
+uv run jupyter execute notebooks/sample.ipynb --inplace --kernel_name=databricks
+```
+
+@[card](https://github.com/i9wa4/jupyter-databricks-kernel)
+
+Goose には jupyter-notebook スキルが組み込まれており、「この Notebook を実行して」と依頼するだけで上記コマンドを実行して結果を取得してくれます。ローカル環境のリソースを考慮する必要はありません。
+
+### 3.3. SQL (mcp-databricks-server)
 
 mcp-databricks-server が事前設定されており、Goose から Databricks SQL Warehouse に対話的にアクセスできます。
 
@@ -95,50 +86,36 @@ mcp-databricks-server が事前設定されており、Goose から Databricks S
 
 @[card](https://github.com/i9wa4/mcp-databricks-server)
 
-SQL を書けなくても「売上の月別推移を見たい」と伝えるだけで、Goose が適切なクエリを生成して実行します。認証さえ通れば Databricks 上のデータを対話的に探索できます。
+SQL を書けなくても「売上の月別推移を見たい」と伝えるだけで、Goose が適切なクエリを生成して実行します。
 
-### 4.3. jupyter-databricks-kernel (Notebook の完全リモート実行)
+## 4. ローカルからの操作方法
 
-jupyter-databricks-kernel により、Notebook のコードを Databricks クラスタ上で完全リモート実行できます。
+### 4.1. セットアップ手順
 
-```bash
-uv run jupyter execute notebooks/sample.ipynb --inplace --kernel_name=databricks
-```
-
-@[card](https://github.com/i9wa4/jupyter-databricks-kernel)
-
-ローカル環境のリソースを考慮することなく Goose に「この Notebook を実行して」と依頼すれば、上記コマンドを実行して結果を取得してくれます。
-
-## 5. セットアップ手順
-
-### 5.1. 前提条件
+前提条件
 
 - VS Code + [Dev Containers 拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 - Docker Desktop または Docker デーモン
 - Databricks ワークスペース (Mosaic AI Gateway 有効)
 
-### 5.2. 事前準備
-
-`.env` ファイルは Dev Container 起動前に作成する必要があります。
+手順
 
 1. リポジトリをクローン
 1. `.env.example` を `.env` にコピーして編集
 
-```bash
-cp .env.example .env
-```
+   ```bash
+   cp .env.example .env
+   ```
 
-環境変数の設定
+   以下の環境変数を設定
 
-| 変数                          | 説明                          |
-| ---                           | ---                           |
-| `DATABRICKS_HOST`             | Databricks ワークスペース URL |
-| `DATABRICKS_CLUSTER_ID`       | Notebook 実行用クラスタ ID    |
-| `DATABRICKS_SQL_WAREHOUSE_ID` | SQL 実行用 Warehouse ID       |
-| `GOOSE_PROVIDER`              | LLM プロバイダ (databricks)   |
-| `GOOSE_MODEL`                 | 使用するモデル                |
-
-### 5.3. Dev Container 起動
+   | 変数                          | 説明                          |
+   | ----------------------------- | ----------------------------- |
+   | `DATABRICKS_HOST`             | Databricks ワークスペース URL |
+   | `DATABRICKS_CLUSTER_ID`       | Notebook 実行用クラスタ ID    |
+   | `DATABRICKS_SQL_WAREHOUSE_ID` | SQL 実行用 Warehouse ID       |
+   | `GOOSE_PROVIDER`              | LLM プロバイダ (databricks)   |
+   | `GOOSE_MODEL`                 | 使用するモデル                |
 
 1. VS Code でリポジトリを開く
 1. 「Reopen in Container」をクリック
@@ -148,27 +125,32 @@ cp .env.example .env
    - Databricks OAuth 認証 (ブラウザが開きます)
    - Goose の MCP 設定
 
-### 5.4. Goose 起動
+### 4.2. 使い方
 
 ```bash
 goose
 ```
 
-これだけで AI コーディング環境が使えます。
-
-## 6. 使い方
-
-Goose を起動すると、AI エージェントと対話できます。
+これだけで AI エージェントと対話できます。
 
 例
 
 - 「samples.nyctaxi.trips テーブルの構造を教えて」
 - 「notebooks/sample.ipynb を実行して」
-- 「pickup_zip ごとの平均運賃を SQL で集計して」
 
 技術的な知識がなくても、やりたいことを自然言語で伝えるだけで操作できます。
 
-## 7. OAuth U2M 認証のメリット
+## 5. なぜ簡単か
+
+### 5.1. Dev Container による環境構築
+
+Dev Container により環境構築が自動化されています。
+
+- Python、Spark のローカルインストール不要
+- 依存関係は自動でインストール
+- 「Reopen in Container」をクリックするだけ
+
+### 5.2. OAuth U2M 認証
 
 このテンプレートは OAuth U2M (User-to-Machine) 認証のみで動作します。
 
@@ -187,19 +169,34 @@ OAuth U2M のメリット
 - 開発者ごとの権限で動作 (最小権限の原則)
 - トークン管理の手間が不要 (OAuth 自動更新)
 
-Dev Container 起動時に `databricks auth login` が実行され、ブラウザで認証するだけで完了します。複雑な設定は一切不要です。
+Dev Container 起動時に `databricks auth login` が実行され、ブラウザで認証するだけで完了します。
 
-## 8. 予算管理 (Budget Monitoring)
+## 6. 運用
+
+### 6.1. 対象ユーザー
+
+このテンプレートは以下のようなユーザーに適しています。
+
+- データアナリスト、ビジネスユーザー
+- インターン、外部協力者
+- 今すぐ AI コーディング環境を使いたい人
+
+逆に適していないケース
+
+- 大量にトークンを消費するヘビーユーザー
+- リアルタイムでの利用制限が必要な場合
+
+### 6.2. 予算管理
 
 ユーザー単位のトークン消費量を監視し、予算超過時に自動でアクセスを制限する仕組みを Databricks Job で実装しています。
 
-### 8.1. 仕組み
+仕組み
 
 - `system.serving.endpoint_usage` テーブルでトークン消費量を集計
 - Mosaic AI Gateway の `rate_limits` API で `calls=0` を設定してユーザーをブロック
 - 月初に `rate_limits` をリセットして全ユーザーを解除
 
-### 8.2. budget-monitor Job
+budget-monitor Job
 
 予算超過ユーザーを検出してブロックする Job です。
 
@@ -217,7 +214,7 @@ import requests
 # Configuration
 BUDGET_TOKENS = 10_000_000  # 10 million tokens
 ENDPOINT_NAME = "databricks-claude-sonnet-4"
-WAREHOUSE_ID = "warehouse-id"
+WAREHOUSE_ID = "your-sql-warehouse-id"  # SQL Warehouse の ID に置き換え
 
 
 def log(message: str):
@@ -376,7 +373,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### 8.3. budget-monthly-reset Job
+budget-monthly-reset Job
 
 月初に rate_limits をリセットする Job です。
 
@@ -511,13 +508,20 @@ if __name__ == "__main__":
     main()
 ```
 
-## 9. おわりに
+## 7. まとめ
 
-Issue でバグ報告や機能提案などお気軽にどうぞ。
+AI エージェント、Notebook、SQL をすべて Databricks に集約することで、以下が実現できます。
+
+- ローカルから AI/Notebook/SQL を統一的に操作
+- ローカル環境の構築が不要
+- OAuth 認証だけで即座に利用開始
+- 技術部門以外のメンバーでも AI コーディングが可能
+
+ぜひお試しください。Issue でバグ報告や機能提案などお気軽にどうぞ。
 
 @[card](https://github.com/i9wa4/databricks-goose-starter)
 
-### 9.1. 関連記事
+### 7.1. 関連記事
 
 @[card](https://zenn.dev/genda_jp/articles/2025-12-13-jupyter-databricks-kernel-oss-dev)
 
@@ -525,7 +529,7 @@ Issue でバグ報告や機能提案などお気軽にどうぞ。
 
 @[card](https://zenn.dev/genda_jp/articles/2025-12-24-mcp-databricks-server-v2)
 
-### 9.2. 関連プロジェクト
+### 7.2. 関連プロジェクト
 
 @[card](https://github.com/block/goose)
 
