@@ -1,5 +1,5 @@
 ---
-title: "全部 Databricks に集約して誰でもローカルから操作できる環境 ― AI エージェント・Notebook・SQL"
+title: "全部 Databricks に集約して誰でもローカルから操作できる環境 ― AI コーディングエージェント・Notebook・SQL"
 emoji: "🦆"
 type: "tech"
 topics:
@@ -9,14 +9,15 @@ topics:
   - "jupyter"
   - "mcp"
 publication_name: "genda_jp"
-published: false
+published: true
+published_at: 2026-01-27 07:30
 ---
 
 ## 1. はじめに
 
 株式会社GENDA データエンジニア / MLOps エンジニアの uma-chan です。
 
-AI エージェント、Notebook、SQL をすべて Databricks に集約し、ローカルから操作できる Dev Container テンプレートを OSS として公開しました。
+AI コーディングエージェント、Notebook、SQL をすべて Databricks に集約し、ローカルから操作できる Dev Container テンプレートを OSS として公開しました。
 
 @[card](https://github.com/i9wa4/databricks-goose-starter)
 
@@ -84,7 +85,7 @@ Dev Container 起動時に `databricks auth login` が実行され、ブラウ�
 
 ## 5. Databricks に集約するもの
 
-### 5.1. AI エージェント (Goose + Mosaic AI Gateway)
+### 5.1. AI コーディングエージェント (Goose + Mosaic AI Gateway)
 
 Goose は Block 社が開発した AI コーディングエージェントです。Databricks Mosaic AI Gateway 経由で Claude や GPT などの LLM を利用できます。
 
@@ -172,7 +173,7 @@ SQL を書けなくても「売上の月別推移を見たい」と伝えるだ�
 goose
 ```
 
-これだけで AI エージェントと対話できます。
+これだけで AI コーディングエージェントと対話できます。
 
 例
 
@@ -511,7 +512,7 @@ if __name__ == "__main__":
 
 ## 8. まとめ
 
-AI エージェント、Notebook、SQL をすべて Databricks に集約することで、以下が実現できます。
+AI コーディングエージェント、Notebook、SQL をすべて Databricks に集約することで、以下が実現できます。
 
 - ローカルから AI/Notebook/SQL を統一的に操作
 - ローカル環境の構築が不要
