@@ -189,11 +189,327 @@ OAuth U2M のメリット
 
 Dev Container 起動時に `databricks auth login` が実行され、ブラウザで認証するだけで完了します。複雑な設定は一切不要です。
 
-## 8. 今後の展望
+## 8. 予算管理 (Budget Monitoring)
 
-- 追加の Agent Skills (dbt, Databricks Jobs など)
-- ドキュメント拡充
-- コミュニティからのフィードバック対応
+ユーザー単位のトークン消費量を監視し、予算超過時に自動でアクセスを制限する仕組みを Databricks Job で実装しています。
+
+### 8.1. 仕組み
+
+- `system.serving.endpoint_usage` テーブルでトークン消費量を集計
+- Mosaic AI Gateway の `rate_limits` API で `calls=0` を設定してユーザーをブロック
+- 月初に `rate_limits` をリセットして全ユーザーを解除
+
+### 8.2. budget-monitor Job
+
+予算超過ユーザーを検出してブロックする Job です。
+
+```python
+"""
+Budget Monitor Job - Detects budget overages and blocks users via rate limits.
+"""
+
+import os
+import sys
+from datetime import datetime
+
+import requests
+
+# Configuration
+BUDGET_TOKENS = 10_000_000  # 10 million tokens
+ENDPOINT_NAME = "databricks-claude-sonnet-4"
+WAREHOUSE_ID = "warehouse-id"
+
+
+def log(message: str):
+    """Print timestamped log message."""
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {message}")
+
+
+def get_databricks_credentials():
+    """Get Databricks host and token."""
+    try:
+        from pyspark.sql import SparkSession
+
+        spark = SparkSession.builder.getOrCreate()
+        host = "https://" + spark.conf.get("spark.databricks.workspaceUrl")
+        from pyspark.dbutils import DBUtils
+
+        dbutils = DBUtils(spark)
+        token = (
+            dbutils.notebook.entry_point.getDbutils()
+            .notebook()
+            .getContext()
+            .apiToken()
+            .get()
+        )
+        return host, token
+    except Exception as e:
+        log(f"Warning: Could not get credentials from Spark context: {e}")
+
+    host = os.environ.get("DATABRICKS_HOST")
+    token = os.environ.get("DATABRICKS_TOKEN")
+    if not host or not token:
+        raise ValueError("DATABRICKS_HOST and DATABRICKS_TOKEN must be set")
+    return host.rstrip("/"), token
+
+
+def execute_sql(host: str, token: str, statement: str) -> list:
+    """Execute SQL via Statement Execution API."""
+    url = f"{host}/api/2.0/sql/statements"
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+    payload = {
+        "warehouse_id": WAREHOUSE_ID,
+        "statement": statement,
+        "wait_timeout": "50s",
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status()
+    result = response.json()
+
+    if result["status"]["state"] != "SUCCEEDED":
+        raise RuntimeError(f"SQL execution failed: {result}")
+
+    return result.get("result", {}).get("data_array", [])
+
+
+def get_exceeded_users_with_usage(host: str, token: str) -> list:
+    """Get users who exceeded budget with their token usage."""
+    query = f"""
+    SELECT
+        requester,
+        SUM(input_token_count) as input_tokens,
+        SUM(output_token_count) as output_tokens,
+        SUM(input_token_count + output_token_count) as total_tokens
+    FROM system.serving.endpoint_usage
+    WHERE request_time >= date_trunc('month', current_date())
+    GROUP BY requester
+    HAVING SUM(input_token_count + output_token_count) >= {BUDGET_TOKENS}
+    ORDER BY total_tokens DESC
+    """
+    return execute_sql(host, token, query)
+
+
+def block_users(host: str, token: str, users: list) -> bool:
+    """Set rate_limits calls=0 for exceeded users. Returns success status."""
+    if not users:
+        log("No users to block")
+        return True
+
+    rate_limits = [
+        {"calls": 0, "key": "user", "principal": user, "renewal_period": "minute"}
+        for user in users
+    ]
+    config = {"rate_limits": rate_limits, "usage_tracking_config": {"enabled": True}}
+
+    url = f"{host}/api/2.0/serving-endpoints/{ENDPOINT_NAME}/ai-gateway"
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+    try:
+        response = requests.put(url, headers=headers, json=config)
+        response.raise_for_status()
+        return True
+    except Exception as e:
+        log(f"ERROR: Failed to block users: {e}")
+        return False
+
+
+def main():
+    print("=" * 60)
+    log("Budget Monitor Job started")
+    print("=" * 60)
+
+    # Configuration
+    print("\n[Configuration]")
+    print(f"  Budget threshold: {BUDGET_TOKENS:,} tokens")
+    print(f"  Target endpoint:  {ENDPOINT_NAME}")
+    print(f"  SQL Warehouse:    {WAREHOUSE_ID}")
+
+    host, token = get_databricks_credentials()
+    print(f"  Workspace:        {host}")
+
+    # Query exceeded users
+    print("\n[Query Results]")
+    log("Querying system.serving.endpoint_usage...")
+
+    exceeded_users = get_exceeded_users_with_usage(host, token)
+
+    if not exceeded_users:
+        log("No users exceeding budget found")
+    else:
+        log(f"Found {len(exceeded_users)} user(s) exceeding budget:")
+        print()
+        print(f"  {'User':<40} {'Input':<15} {'Output':<15} {'Total':<15}")
+        print(f"  {'-' * 40} {'-' * 15} {'-' * 15} {'-' * 15}")
+        for row in exceeded_users:
+            user, input_t, output_t, total_t = (
+                row[0],
+                int(row[1]),
+                int(row[2]),
+                int(row[3]),
+            )
+            print(f"  {user:<40} {input_t:>14,} {output_t:>14,} {total_t:>14,}")
+
+    # Block users
+    print("\n[Block Processing]")
+    users_to_block = [row[0] for row in exceeded_users]
+
+    if users_to_block:
+        log(f"Blocking {len(users_to_block)} user(s)...")
+        success = block_users(host, token, users_to_block)
+        if success:
+            log("SUCCESS: All users blocked via rate_limits (calls=0)")
+        else:
+            log("FAILED: Could not block users")
+            sys.exit(1)
+    else:
+        log("No blocking action required")
+
+    # Completion
+    print()
+    print("=" * 60)
+    log("Budget Monitor Job completed")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### 8.3. budget-monthly-reset Job
+
+月初に rate_limits をリセットする Job です。
+
+```python
+"""
+Budget Monthly Reset Job - Resets rate limits at the beginning of each month.
+"""
+
+import os
+import sys
+from datetime import datetime
+
+import requests
+
+# Configuration
+ENDPOINT_NAME = "databricks-claude-sonnet-4"
+
+
+def log(message: str):
+    """Print timestamped log message."""
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {message}")
+
+
+def get_databricks_credentials():
+    """Get Databricks host and token."""
+    try:
+        from pyspark.sql import SparkSession
+
+        spark = SparkSession.builder.getOrCreate()
+        host = "https://" + spark.conf.get("spark.databricks.workspaceUrl")
+        from pyspark.dbutils import DBUtils
+
+        dbutils = DBUtils(spark)
+        token = (
+            dbutils.notebook.entry_point.getDbutils()
+            .notebook()
+            .getContext()
+            .apiToken()
+            .get()
+        )
+        return host, token
+    except Exception as e:
+        log(f"Warning: Could not get credentials from Spark context: {e}")
+
+    host = os.environ.get("DATABRICKS_HOST")
+    token = os.environ.get("DATABRICKS_TOKEN")
+    if not host or not token:
+        raise ValueError("DATABRICKS_HOST and DATABRICKS_TOKEN must be set")
+    return host.rstrip("/"), token
+
+
+def get_current_rate_limits(host: str, token: str) -> dict:
+    """Get current AI Gateway configuration."""
+    url = f"{host}/api/2.0/serving-endpoints/{ENDPOINT_NAME}"
+    headers = {"Authorization": f"Bearer {token}"}
+
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    result = response.json()
+    return result.get("ai_gateway", {})
+
+
+def reset_rate_limits(host: str, token: str) -> bool:
+    """Reset rate limits to unblock all users. Returns success status."""
+    config = {"rate_limits": [], "usage_tracking_config": {"enabled": True}}
+
+    url = f"{host}/api/2.0/serving-endpoints/{ENDPOINT_NAME}/ai-gateway"
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+    try:
+        response = requests.put(url, headers=headers, json=config)
+        response.raise_for_status()
+        return True
+    except Exception as e:
+        log(f"ERROR: Failed to reset rate limits: {e}")
+        return False
+
+
+def main():
+    print("=" * 60)
+    log("Budget Monthly Reset Job started")
+    print("=" * 60)
+
+    # Configuration
+    print("\n[Configuration]")
+    print(f"  Target endpoint: {ENDPOINT_NAME}")
+
+    host, token = get_databricks_credentials()
+    print(f"  Workspace:       {host}")
+
+    # Get current state
+    print("\n[Current State]")
+    log("Fetching current rate_limits...")
+
+    current_config = get_current_rate_limits(host, token)
+    current_limits = current_config.get("rate_limits", [])
+
+    if not current_limits:
+        log("No rate_limits currently set")
+    else:
+        log(f"Found {len(current_limits)} rate_limit(s):")
+        for limit in current_limits:
+            principal = limit.get("principal", "N/A")
+            calls = limit.get("calls", "N/A")
+            key = limit.get("key", "N/A")
+            print(f"  - {principal} (key={key}, calls={calls})")
+
+    # Reset rate limits
+    print("\n[Reset Processing]")
+    log("Resetting rate_limits to empty...")
+
+    success = reset_rate_limits(host, token)
+
+    if success:
+        log("SUCCESS: Rate limits cleared")
+        if current_limits:
+            log(f"Unblocked {len(current_limits)} user(s)")
+        else:
+            log("No users were blocked")
+    else:
+        log("FAILED: Could not reset rate limits")
+        sys.exit(1)
+
+    # Completion
+    print()
+    print("=" * 60)
+    log("Budget Monthly Reset Job completed")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()
+```
 
 ## 9. おわりに
 
