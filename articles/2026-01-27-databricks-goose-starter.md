@@ -1,5 +1,5 @@
 ---
-title: "全部 Databricks に集約して誰でもローカルから操作する ― エージェント・SQL・Notebook"
+title: "全部 Databricks に集約して誰でもローカルから操作できる環境 ― エージェント・SQL・Notebook"
 emoji: "🦆"
 type: "tech"
 topics:
