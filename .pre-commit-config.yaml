@@ -69,3 +69,9 @@ repos:
         entry: rumdl check --fix
         language: system
         files: \.md$
+
+      - id: convert-drawio-to-png
+        name: Convert .drawio to .drawio.png
+        entry: bash .github/scripts/convert-drawio-to-png.sh
+        language: system
+        files: images/.*\.drawio$

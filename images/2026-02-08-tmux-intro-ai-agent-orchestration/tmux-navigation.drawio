@@ -1,0 +1,228 @@
+<mxfile host="Electron" agent="Mozilla/5.0" version="24.0.0">
+  <diagram name="Page-1" id="page1">
+    <mxGraphModel dx="2400" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="tmux のナビゲーション" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=36;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="450" y="30" width="800" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Session A -->
+        <mxCell id="sessionA" value="セッション A" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1976D2;fillColor=#E3F2FD;strokeWidth=4;fontSize=18;fontFamily=Noto Sans JP;align=left;verticalAlign=top;spacingLeft=15;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="150" width="1400" height="580" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Window Content Area -->
+        <mxCell id="windowA_content" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#FFFFFF;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="230" y="260" width="1340" height="450" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Window 1 (Active) -->
+        <mxCell id="windowA1" value="ウインドウ 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#4CAF50;strokeWidth=3;fontSize=16;fontFamily=Noto Sans JP;fontColor=#FFFFFF;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="230" y="210" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Window 2 (Inactive) -->
+        <mxCell id="windowA2" value="ウインドウ 2" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#E8F5E9;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="430" y="210" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Pane 1 (top-left) -->
+        <mxCell id="paneA1" value="ペイン 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="250" y="285" width="640" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Pane 2 (top-right) -->
+        <mxCell id="paneA2" value="ペイン 2" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="910" y="285" width="640" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Pane 3 (bottom-left) -->
+        <mxCell id="paneA3" value="ペイン 3" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="250" y="500" width="640" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Pane 4 (bottom-right) -->
+        <mxCell id="paneA4" value="ペイン 4" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="910" y="500" width="640" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- Session B -->
+        <mxCell id="sessionB" value="セッション B" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1976D2;fillColor=#E3F2FD;strokeWidth=4;fontSize=18;fontFamily=Noto Sans JP;align=left;verticalAlign=top;spacingLeft=15;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="850" width="1400" height="330" as="geometry" />
+        </mxCell>
+
+        <!-- Session B - Window Content Area -->
+        <mxCell id="windowB_content" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#FFFFFF;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="230" y="960" width="1340" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Session B - Window 1 (Active) -->
+        <mxCell id="windowB1" value="ウインドウ 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#4CAF50;strokeWidth=3;fontSize=16;fontFamily=Noto Sans JP;fontColor=#FFFFFF;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="230" y="910" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Session C -->
+        <mxCell id="sessionC" value="セッション C" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1976D2;fillColor=#E3F2FD;strokeWidth=4;fontSize=18;fontFamily=Noto Sans JP;align=left;verticalAlign=top;spacingLeft=15;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1300" width="1400" height="330" as="geometry" />
+        </mxCell>
+
+        <!-- Session C - Window Content Area -->
+        <mxCell id="windowC_content" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#FFFFFF;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="230" y="1410" width="1340" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Session C - Window 1 (Active) -->
+        <mxCell id="windowC1" value="ウインドウ 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#4CAF50;strokeWidth=3;fontSize=16;fontFamily=Noto Sans JP;fontColor=#FFFFFF;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="230" y="1360" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Session C - Window 2 (Inactive) -->
+        <mxCell id="windowC2" value="ウインドウ 2" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#E8F5E9;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="430" y="1360" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Navigation Arrows -->
+
+        <!-- Session A -> B: Down arrow (M-Down) -->
+        <mxCell id="arrow_a_to_b" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#1976D2;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="730" as="sourcePoint" />
+            <mxPoint x="100" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_a_to_b" value="M-Down" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="20" y="775" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Session B -> A: Up arrow (M-Up) -->
+        <mxCell id="arrow_b_to_a" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#1976D2;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="850" as="sourcePoint" />
+            <mxPoint x="100" y="730" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_b_to_a" value="M-Up" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="20" y="815" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Session B -> C: Down arrow (M-Down) -->
+        <mxCell id="arrow_b_to_c" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#1976D2;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="1180" as="sourcePoint" />
+            <mxPoint x="100" y="1300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_b_to_c" value="M-Down" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="20" y="1225" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Session C -> B: Up arrow (M-Up) -->
+        <mxCell id="arrow_c_to_b" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#1976D2;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="1300" as="sourcePoint" />
+            <mxPoint x="100" y="1180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_c_to_b" value="M-Up" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="20" y="1265" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Window 1 -> 2: Right arrow (M-Right) -->
+        <mxCell id="arrow_w1_to_w2" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#388E3C;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="235" as="sourcePoint" />
+            <mxPoint x="430" y="235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_w1_to_w2" value="M-Right" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="355" y="175" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Window 2 -> 1: Left arrow (M-Left) -->
+        <mxCell id="arrow_w2_to_w1" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#388E3C;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="430" y="235" as="sourcePoint" />
+            <mxPoint x="410" y="235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_w2_to_w1" value="M-Left" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="355" y="265" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Pane 1 -> 2: Right arrow (S-Right) -->
+        <mxCell id="arrow_p1_to_p2" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#F57C00;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="890" y="380" as="sourcePoint" />
+            <mxPoint x="910" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_p1_to_p2" value="S-Right" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="820" y="335" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Pane 2 -> 1: Left arrow (S-Left) -->
+        <mxCell id="arrow_p2_to_p1" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#F57C00;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="910" y="380" as="sourcePoint" />
+            <mxPoint x="890" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_p2_to_p1" value="S-Left" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="820" y="425" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Pane 1 -> 3: Down arrow (S-Down) -->
+        <mxCell id="arrow_p1_to_p3" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#F57C00;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="570" y="475" as="sourcePoint" />
+            <mxPoint x="570" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_p1_to_p3" value="S-Down" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="600" y="470" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Pane 3 -> 1: Up arrow (S-Up) -->
+        <mxCell id="arrow_p3_to_p1" value="" style="endArrow=classic;html=1;strokeWidth=7;strokeColor=#F57C00;endSize=18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="570" y="500" as="sourcePoint" />
+            <mxPoint x="570" y="475" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_p3_to_p1" value="S-Up" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=44;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="600" y="510" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend_bg" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#757575;fillColor=#FAFAFA;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1700" width="1400" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend_title" value="ナビゲーション" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="230" y="1720" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend_note1" value="矢印の向きがキーの方向と一致します" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="230" y="1775" width="600" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend_session_nav" value="セッション間: M-Up / M-Down（縦方向）" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="230" y="1820" width="500" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend_window_nav" value="ウインドウ間: M-Left / M-Right（横方向）" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1775" width="550" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend_pane_nav" value="ペイン間: S-Left / S-Right / S-Up / S-Down" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1820" width="550" height="35" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
