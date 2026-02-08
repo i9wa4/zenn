@@ -1,0 +1,121 @@
+<mxfile host="Electron" agent="Mozilla/5.0" version="24.0.0">
+  <diagram name="Page-1" id="page1">
+    <mxGraphModel dx="1434" dy="835" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="tmux の 3 層構造" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="400" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Session A -->
+        <mxCell id="sessionA" value="セッション A" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1976D2;fillColor=#E3F2FD;strokeWidth=4;fontSize=20;fontFamily=Noto Sans JP;align=left;verticalAlign=top;spacingLeft=15;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="840" height="370" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Window Content Area -->
+        <mxCell id="windowA_content" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#FFFFFF;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="100" y="180" width="800" height="270" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Window 1 (Active) - Tab connected to content -->
+        <mxCell id="windowA1" value="ウインドウ 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#4CAF50;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;fontColor=#FFFFFF;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="150" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Window 2 (Inactive) - Tab separated from content -->
+        <mxCell id="windowA2" value="ウインドウ 2" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#E8F5E9;strokeWidth=2;fontSize=14;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="230" y="150" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Pane 1 (top-left) -->
+        <mxCell id="paneA1" value="ペイン 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="115" y="195" width="380" height="115" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Pane 2 (top-right) -->
+        <mxCell id="paneA2" value="ペイン 2" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="505" y="195" width="380" height="115" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Pane 3 (bottom-left) -->
+        <mxCell id="paneA3" value="ペイン 3" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="115" y="320" width="380" height="115" as="geometry" />
+        </mxCell>
+
+        <!-- Session A - Pane 4 (bottom-right) -->
+        <mxCell id="paneA4" value="ペイン 4" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="505" y="320" width="380" height="115" as="geometry" />
+        </mxCell>
+
+        <!-- Session B -->
+        <mxCell id="sessionB" value="セッション B" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1976D2;fillColor=#E3F2FD;strokeWidth=4;fontSize=20;fontFamily=Noto Sans JP;align=left;verticalAlign=top;spacingLeft=15;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="500" width="840" height="210" as="geometry" />
+        </mxCell>
+
+        <!-- Session B - Window Content Area -->
+        <mxCell id="windowB_content" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#FFFFFF;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="100" y="580" width="800" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Session B - Window 1 (Active) -->
+        <mxCell id="windowB1" value="ウインドウ 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#4CAF50;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;fontColor=#FFFFFF;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="550" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Session C -->
+        <mxCell id="sessionC" value="セッション C" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1976D2;fillColor=#E3F2FD;strokeWidth=4;fontSize=20;fontFamily=Noto Sans JP;align=left;verticalAlign=top;spacingLeft=15;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="740" width="840" height="210" as="geometry" />
+        </mxCell>
+
+        <!-- Session C - Window Content Area -->
+        <mxCell id="windowC_content" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#FFFFFF;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="100" y="820" width="800" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Session C - Window 1 (Active) -->
+        <mxCell id="windowC1" value="ウインドウ 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#4CAF50;strokeWidth=3;fontSize=14;fontFamily=Noto Sans JP;fontColor=#FFFFFF;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="790" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Session C - Window 2 (Inactive) -->
+        <mxCell id="windowC2" value="ウインドウ 2" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#E8F5E9;strokeWidth=2;fontSize=14;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="230" y="790" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Background -->
+        <mxCell id="legend_bg" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#757575;fillColor=#FAFAFA;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="990" width="840" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Title -->
+        <mxCell id="legend_title" value="階層構造" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="160" y="1000" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Legend - Session -->
+        <mxCell id="legend_session" value="セッション" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#1976D2;fillColor=#E3F2FD;strokeWidth=3;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1040" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- Legend - Window -->
+        <mxCell id="legend_window" value="ウインドウ" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#4CAF50;strokeWidth=3;fontSize=16;fontFamily=Noto Sans JP;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="400" y="1040" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- Legend - Pane -->
+        <mxCell id="legend_pane" value="ペイン" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="640" y="1040" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Note -->
+        <mxCell id="legend_note" value="セッション内にウインドウ、アクティブウインドウ内に分割ペインを配置" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Noto Sans JP;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1090" width="640" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

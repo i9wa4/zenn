@@ -1,0 +1,145 @@
+<mxfile host="Electron" agent="Mozilla/5.0" version="24.0.0">
+  <diagram name="Page-1" id="page1">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="800" pageHeight="600" math="0" shadow="0" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="ペイン間移動" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontFamily=Noto Sans JP;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Window container -->
+        <mxCell id="window" value="ウインドウ 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#388E3C;fillColor=#FFFFFF;strokeWidth=2;fontSize=12;fontFamily=Noto Sans JP;align=left;verticalAlign=top;spacingLeft=15;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="150" y="70" width="400" height="280" as="geometry" />
+        </mxCell>
+
+        <!-- Pane 1 (top-left) -->
+        <mxCell id="pane1" value="ペイン 1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=12;fontFamily=Noto Sans JP;spacingLeft=8;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="160" y="105" width="145" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- Pane 2 (top-right) -->
+        <mxCell id="pane2" value="ペイン 2" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=12;fontFamily=Noto Sans JP;spacingLeft=8;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="395" y="105" width="145" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- Pane 3 (bottom-left) -->
+        <mxCell id="pane3" value="ペイン 3" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=12;fontFamily=Noto Sans JP;spacingLeft=8;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="160" y="267" width="145" height="73" as="geometry" />
+        </mxCell>
+
+        <!-- Pane 4 (bottom-right) -->
+        <mxCell id="pane4" value="ペイン 4" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#F57C00;fillColor=#FFF3E0;strokeWidth=2;fontSize=12;fontFamily=Noto Sans JP;spacingLeft=8;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="395" y="267" width="145" height="73" as="geometry" />
+        </mxCell>
+
+        <!-- S-Left badge (top) -->
+        <mxCell id="badge_s_left_top" value="S-Left" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#5D4037;fillColor=#5D4037;fontSize=12;fontFamily=Noto Sans JP;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="310" y="123" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- S-Right badge (top) -->
+        <mxCell id="badge_s_right_top" value="S-Right" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#5D4037;fillColor=#5D4037;fontSize=12;fontFamily=Noto Sans JP;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="310" y="158" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- S-Up badge (left) -->
+        <mxCell id="badge_s_up_left" value="S-Up" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#5D4037;fillColor=#5D4037;fontSize=12;fontFamily=Noto Sans JP;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="197" y="197" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- S-Down badge (left) -->
+        <mxCell id="badge_s_down_left" value="S-Down" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#5D4037;fillColor=#5D4037;fontSize=12;fontFamily=Noto Sans JP;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="197" y="232" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- S-Up badge (right) -->
+        <mxCell id="badge_s_up_right" value="S-Up" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#5D4037;fillColor=#5D4037;fontSize=12;fontFamily=Noto Sans JP;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="432" y="197" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- S-Down badge (right) -->
+        <mxCell id="badge_s_down_right" value="S-Down" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#5D4037;fillColor=#5D4037;fontSize=12;fontFamily=Noto Sans JP;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="432" y="232" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- S-Left badge (bottom) -->
+        <mxCell id="badge_s_left_bottom" value="S-Left" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#5D4037;fillColor=#5D4037;fontSize=12;fontFamily=Noto Sans JP;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="310" y="278" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- S-Right badge (bottom) -->
+        <mxCell id="badge_s_right_bottom" value="S-Right" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#5D4037;fillColor=#5D4037;fontSize=12;fontFamily=Noto Sans JP;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="310" y="313" width="70" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- S-Left arrow (top, leftward) - 20px -->
+        <mxCell id="arrow_s_left_top" value="" style="endArrow=classic;startArrow=none;html=1;strokeWidth=4;strokeColor=#FF9800;endSize=8;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="138" as="sourcePoint" />
+            <mxPoint x="290" y="138" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S-Right arrow (top, rightward) - 20px -->
+        <mxCell id="arrow_s_right_top" value="" style="endArrow=classic;startArrow=none;html=1;strokeWidth=4;strokeColor=#FF9800;endSize=8;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="173" as="sourcePoint" />
+            <mxPoint x="400" y="173" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S-Up arrow (left, upward) - 20px -->
+        <mxCell id="arrow_s_up_left" value="" style="endArrow=classic;startArrow=none;html=1;strokeWidth=4;strokeColor=#FF9800;endSize=8;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="232" y="197" as="sourcePoint" />
+            <mxPoint x="232" y="177" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S-Down arrow (left, downward) - 20px -->
+        <mxCell id="arrow_s_down_left" value="" style="endArrow=classic;startArrow=none;html=1;strokeWidth=4;strokeColor=#FF9800;endSize=8;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="232" y="262" as="sourcePoint" />
+            <mxPoint x="232" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S-Up arrow (right, upward) - 20px -->
+        <mxCell id="arrow_s_up_right" value="" style="endArrow=classic;startArrow=none;html=1;strokeWidth=4;strokeColor=#FF9800;endSize=8;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="467" y="197" as="sourcePoint" />
+            <mxPoint x="467" y="177" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S-Down arrow (right, downward) - 20px -->
+        <mxCell id="arrow_s_down_right" value="" style="endArrow=classic;startArrow=none;html=1;strokeWidth=4;strokeColor=#FF9800;endSize=8;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="467" y="262" as="sourcePoint" />
+            <mxPoint x="467" y="282" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S-Left arrow (bottom, leftward) - 20px -->
+        <mxCell id="arrow_s_left_bottom" value="" style="endArrow=classic;startArrow=none;html=1;strokeWidth=4;strokeColor=#FF9800;endSize=8;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="293" as="sourcePoint" />
+            <mxPoint x="290" y="293" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S-Right arrow (bottom, rightward) - 20px -->
+        <mxCell id="arrow_s_right_bottom" value="" style="endArrow=classic;startArrow=none;html=1;strokeWidth=4;strokeColor=#FF9800;endSize=8;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="328" as="sourcePoint" />
+            <mxPoint x="400" y="328" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
